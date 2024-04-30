@@ -13029,41 +13029,34 @@ export type introspection = {
             ]
           },
           {
-            "name": "metafields",
+            "name": "formFields",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "INTERFACE",
+                    "name": "CustomerFormFieldValue",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "addresses",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
                 "kind": "OBJECT",
-                "name": "MetafieldConnection",
+                "name": "AddressConnection",
                 "ofType": null
               }
             },
             "args": [
-              {
-                "name": "namespace",
-                "type": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                }
-              },
-              {
-                "name": "keys",
-                "type": {
-                  "kind": "LIST",
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "String",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
               {
                 "name": "before",
                 "type": {
@@ -13099,34 +13092,41 @@ export type introspection = {
             ]
           },
           {
-            "name": "formFields",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "LIST",
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "ofType": {
-                    "kind": "INTERFACE",
-                    "name": "CustomerFormFieldValue",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "addresses",
+            "name": "metafields",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
                 "kind": "OBJECT",
-                "name": "AddressConnection",
+                "name": "MetafieldConnection",
                 "ofType": null
               }
             },
             "args": [
+              {
+                "name": "namespace",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              },
+              {
+                "name": "keys",
+                "type": {
+                  "kind": "LIST",
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
               {
                 "name": "before",
                 "type": {

@@ -40,7 +40,7 @@ export const Hero = () => (
               11 mm bed
             </p>
             <Button asChild className="w-fit md:w-fit">
-              <a href="/#">Shop now</a>
+              <a href="/used-kunibert-michel-oboe-gouging-machine/">Shop now</a>
             </Button>
           </div>
         </div>
@@ -66,7 +66,7 @@ export const Hero = () => (
               11 mm bed
             </p> */}
             <Button asChild className="w-fit md:w-fit">
-              <a href="/#">Shop now</a>
+              <a href="/used-kunibert-michel-oboe-gouging-machine/">Shop now</a>
             </Button>
           </div>
         </div>
