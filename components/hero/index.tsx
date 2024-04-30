@@ -56,9 +56,12 @@ export const Hero = () => (
             src={SlideshowBG2}
           />
           <div className="flex flex-col items-center gap-4 px-12 py-36 md:items-start">
-            <h2 className="lg:text-4x max-w-max max-w-xl bg-black bg-opacity-50 p-1 pl-2 text-center text-3xl text-white md:text-left">
+            <h3 className="lg:text-4x max-w-max max-w-xl bg-black bg-opacity-50 p-1 pl-2 text-center text-2xl text-white md:text-left">
               American double-radius gouge
-            </h2>
+            </h3>
+            <h3 className="lg:text-4x max-w-max max-w-xl bg-black bg-opacity-50 p-1 pl-2 text-center text-2xl text-white md:text-left">
+              Used
+            </h3>
             {/* <h4 className="max-w-max bg-black bg-opacity-50 px-2 text-center text-white text-3xl sm:text-3xl md:text-left lg:text-3xl">
               Oboe Gouging Machine
             </h4> */}
