@@ -35,7 +35,7 @@ export const StoreLogo = ({ data }: Props) => {
   }
 
   return (
-    <>
+    <div className="flex items-center">
       <BcImage
         alt={logo.image.altText ? logo.image.altText : storeName}
         className="max-h-16 object-contain"
@@ -45,6 +45,6 @@ export const StoreLogo = ({ data }: Props) => {
         width={90}
       />
       <span className="text-2xl font-black">{storeName}</span>
-    </>
+    </div>
   );
 };
