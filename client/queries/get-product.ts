@@ -135,6 +135,11 @@ const PRODUCT_FRAGMENT = graphql(
           }
         }
       }
+      inventory {
+        aggregated {
+          availableToSell
+        }
+      }
       availabilityV2 {
         status
         description

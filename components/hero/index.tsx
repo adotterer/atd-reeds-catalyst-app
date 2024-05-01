@@ -62,12 +62,6 @@ export const Hero = () => (
             <h3 className="lg:text-4x max-w-max max-w-xl bg-black bg-opacity-50 p-1 pl-2 text-center text-2xl text-white md:text-left">
               Used
             </h3>
-            {/* <h4 className="max-w-max bg-black bg-opacity-50 px-2 text-center text-white text-3xl sm:text-3xl md:text-left lg:text-3xl">
-              Oboe Gouging Machine
-            </h4> */}
-            {/* <p className="max-w-max max-w-xl bg-black bg-opacity-50 px-2 text-center text-white text-2xl md:text-left">
-              11 mm bed
-            </p> */}
             <Button asChild className="w-fit md:w-fit">
               <a href="/used-kunibert-michel-oboe-gouging-machine/">Shop now</a>
             </Button>

@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { FormProvider } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
-import { Button } from '@bigcommerce/components/button';
+// import { Button } from '@bigcommerce/components/button';
 import { getProduct } from '~/client/queries/get-product';
 import { ExistingResultType } from '~/client/util';
 
@@ -28,6 +28,10 @@ export const ProductForm = ({ product }: { product: Product }) => {
   const t = useTranslations('Product.Form');
 
   const { handleSubmit, register, ...methods } = useProductForm();
+
+  const availableToSell = product.inventory.aggregated
+    ? product.inventory.aggregated.availableToSell === 0
+    : false;
 
   const productFormSubmit = async (data: ProductFormData) => {
     const result = await handleAddToCart(data);
@@ -99,17 +103,16 @@ export const ProductForm = ({ product }: { product: Product }) => {
         })}
 
         <QuantityField />
-
         <div className="@md:flex-row mt-4 flex flex-col gap-4">
-          <AddToCart disabled={product.availabilityV2.status === 'Unavailable'} />
+          <AddToCart disabled={availableToSell} />
 
           {/* NOT IMPLEMENTED YET */}
-          <div className="w-full">
+          {/* <div className="w-full">
             <Button disabled type="submit" variant="secondary">
               <Heart aria-hidden="true" className="mx-2" />
               <span>{t('saveToWishlist')}</span>
             </Button>
-          </div>
+          </div> */}
         </div>
       </form>
     </FormProvider>

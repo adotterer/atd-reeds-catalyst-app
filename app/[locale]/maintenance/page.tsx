@@ -1,4 +1,4 @@
-import { Phone } from 'lucide-react';
+// import { Phone } from 'lucide-react';
 import { ReactNode } from 'react';
 
 import { client } from '~/client';
@@ -45,7 +45,8 @@ export default async function MaintenancePage() {
     );
   }
 
-  const { contact, statusMessage } = storeSettings;
+  // const { contact, statusMessage } = storeSettings;
+  const { statusMessage } = storeSettings;
 
   return (
     <Container>

@@ -11,6 +11,7 @@ export const ProductSchema = ({ product }: { product: Awaited<ReturnType<typeof 
   const sku = product.sku ? { sku: product.sku } : null;
   const gtin = product.gtin ? { gtin: product.gtin } : null;
   const mpn = product.mpn ? { mpn: product.mpn } : null;
+  const inventory = product.inventory.aggregated ? { inventory: product.inventory } : null;
 
   const brand = product.brand
     ? {
@@ -71,6 +72,7 @@ export const ProductSchema = ({ product }: { product: Awaited<ReturnType<typeof 
     ...sku,
     ...gtin,
     ...mpn,
+    ...inventory,
     offers: {
       '@type': 'Offer',
       ...(priceSpecification && { priceSpecification }),
