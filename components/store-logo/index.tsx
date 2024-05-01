@@ -36,12 +36,12 @@ export const StoreLogo = ({ data }: Props) => {
         <Image
           alt="Boston terrier profile"
           className="opacity-50"
-          height={90}
+          height={75}
           priority
           src={Logo}
-          width={90}
+          width={75}
         />
-        <span className="text-2xl font-black md:text-1xl">{logo.text}</span>
+        <span className="text-lg font-black md:text-2xl">{logo.text}</span>
       </div>
     );
   }
@@ -51,12 +51,12 @@ export const StoreLogo = ({ data }: Props) => {
       <BcImage
         alt={logo.image.altText ? logo.image.altText : storeName}
         className="max-h-16 object-contain"
-        height={90}
+        height={75}
         priority
         src={logo.image.url}
-        width={80}
+        width={75}
       />
-      <span className="text-2xl font-black">{storeName}</span>
+      <span className="text-lg font-black md:text-2xl">{storeName}</span>
     </div>
   );
 };

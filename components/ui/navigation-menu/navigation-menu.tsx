@@ -51,7 +51,7 @@ const NavigationMenu = forwardRef<
           <div className="relative">
             <div
               className={cn(
-                'max-w-full group flex min-h-[92px] items-center justify-between gap-1 bg-white px-1 2xl:container sm:px-10 lg:gap-8 lg:px-12 2xl:mx-auto 2xl:px-0',
+                'max-w-full group flex min-h-[92px] items-center justify-between gap-0 bg-white px-0 2xl:container sm:px-10 lg:gap-8 lg:px-12 2xl:mx-auto 2xl:px-0',
                 className,
               )}
             >
