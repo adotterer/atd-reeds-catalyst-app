@@ -77,10 +77,10 @@ export const Footer = ({ data }: Props) => {
                   Email
                   <svg
                     className="inline-block pl-2"
-                    width="25"
+                    fill="none"
                     height="25"
                     viewBox="0 0 25 25"
-                    fill="none"
+                    width="25"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -89,7 +89,12 @@ export const Footer = ({ data }: Props) => {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
-                    <path d="M22.4999 6.17419L12.4999 13.1742L2.49994 6.17419" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path
+                      d="M22.4999 6.17419L12.4999 13.1742L2.49994 6.17419"
+                      stroke="black"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </Link>
               </li>
