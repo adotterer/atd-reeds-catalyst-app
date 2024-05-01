@@ -106,7 +106,7 @@ export const ProductForm = ({ product }: { product: Product }) => {
         <div className="@md:flex-row mt-4 flex flex-col gap-4">
           <AddToCart disabled={availableToSell} />
 
-          {/* NOT IMPLEMENTED YET */}
+          {/* NOT IMPLEMENTED YET! */}
           {/* <div className="w-full">
             <Button disabled type="submit" variant="secondary">
               <Heart aria-hidden="true" className="mx-2" />
