@@ -1,6 +1,7 @@
 'use client';
 
-import { AlertCircle, Check, Heart } from 'lucide-react';
+import { AlertCircle, Check } from 'lucide-react';
+// import { AlertCircle, Check, Heart } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { FormProvider } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
@@ -29,7 +30,7 @@ export const ProductForm = ({ product }: { product: Product }) => {
 
   const { handleSubmit, register, ...methods } = useProductForm();
 
-  const availableToSell = product.inventory.aggregated
+  const noInventory = product.inventory.aggregated
     ? product.inventory.aggregated.availableToSell === 0
     : false;
 
@@ -104,7 +105,7 @@ export const ProductForm = ({ product }: { product: Product }) => {
 
         <QuantityField />
         <div className="@md:flex-row mt-4 flex flex-col gap-4">
-          <AddToCart disabled={availableToSell} />
+          <AddToCart disabled={product.availabilityV2.status === 'Unavailable' || noInventory} />
 
           {/* NOT IMPLEMENTED YET! */}
           {/* <div className="w-full">

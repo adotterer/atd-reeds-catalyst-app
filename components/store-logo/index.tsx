@@ -27,6 +27,8 @@ interface Props {
 export const StoreLogo = ({ data }: Props) => {
   const { logoV2: logo, storeName } = data;
 
+  console.log(data.logoV2, "logo data ------")
+
   if (logo.__typename === 'StoreTextLogo') {
     return <span className="text-2xl font-black">{logo.text}</span>;
   }
