@@ -20,24 +20,23 @@ export const Hero = () => (
   <Slideshow>
     <SlideshowContent>
     <SlideshowSlide>
-        <div className="flexr relative">
+        <div className="flex relative h-full">
           <Image
-            alt="Good vibrations philanthropy"
-            className="hover:bg-blend-darken absolute -z-10 object-cover object-top"
+            alt="Shop cane"
+            className="hover:bg-blend-darken absolute -z-10 object-right object-cover"
             fill
             priority
-            sizes="(max-width: 1536px) 100vw, 900px"
             src={SlideshowBG3}
           />
-          <div className="flex flex-col items-center gap-4 px-12 py-40 md:items-start">
-            <h2 className="shadow-md g:text-5x max-w-max max-w-xl bg-blue-300 bg-opacity-80 p-1 pl-2 text-center text-4xl text-black sm:text-4xl lg:items-center">
-              "Good Vibrations"
-            </h2>
+          <div className="flex flex-col items-center gap-3 md:gap-7 px-12 py-20 md:py-40 md:items-start">
+            {/* <h2 className="shadow-md g:text-5x max-w-max max-w-xl bg-blue-300 bg-opacity-80 p-1 pl-2 text-center text-4xl text-black sm:text-4xl lg:items-center">
+              Good Vibrations
+            </h2> */}
             <h4 className="shadow-md max-w-max bg-blue-300 bg-opacity-80 px-2 text-center text-4xl text-black">
-              For every 10 pieces of cane purchased,
+              Discover a diverse selection of cane
             </h4>
             <p className="shadow-md max-w-max max-w-xl bg-blue-300 bg-opacity-80 px-2 text-2xl text-black text-center">
-              1 piece will be donated to a musician in need
+              Chosen for both professional and student needs.
             </p>
             <Button asChild className="w-fit md:w-fit">
               <a href="/cane/">Shop cane</a>

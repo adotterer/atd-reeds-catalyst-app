@@ -35,7 +35,7 @@ export const StoreLogo = ({ data }: Props) => {
       <div className="flex items-center object-contain">
         <Image
           alt="Boston terrier profile"
-          className="opacity-50"
+          // className="opacity-50"
           height={75}
           priority
           src={Logo}
