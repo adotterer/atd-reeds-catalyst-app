@@ -32,29 +32,29 @@ export const StoreLogo = ({ data }: Props) => {
 
   if (logo.__typename === 'StoreTextLogo') {
     return (
-      <div className="flex items-center">
+      <div className="flex items-center object-contain">
         <Image
           alt="Boston terrier profile"
-          // className="opacity-50"
-          height={100}
+          className="opacity-50"
+          height={90}
           priority
           src={Logo}
-          width={100}
+          width={90}
         />
-        <span className="text-2xl font-black">{logo.text}</span>
+        <span className="text-2xl font-black md:text-1xl">{logo.text}</span>
       </div>
     );
   }
 
   return (
-    <div className="flex items-center">
+    <div className="inline-flex items-center">
       <BcImage
         alt={logo.image.altText ? logo.image.altText : storeName}
         className="max-h-16 object-contain"
         height={90}
         priority
         src={logo.image.url}
-        width={90}
+        width={80}
       />
       <span className="text-2xl font-black">{storeName}</span>
     </div>

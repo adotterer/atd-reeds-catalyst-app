@@ -49,7 +49,7 @@ export const HeaderNav = async ({ data, className, inCollapsedNav = false }: Pro
     <>
       <NavigationMenuList
         className={cn(
-          !inCollapsedNav && 'lg:gap-4',
+          !inCollapsedNav && 'lg:gap-2',
           inCollapsedNav && 'flex-col items-start pb-6',
           className,
         )}
