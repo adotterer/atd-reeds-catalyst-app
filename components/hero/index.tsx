@@ -56,10 +56,10 @@ export const Hero = () => (
           />
           <div className="flex flex-col items-center gap-4 px-12 py-36 md:items-start">
             <h3 className="lg:text-4x max-w-max max-w-xl bg-black bg-opacity-50 p-1 pl-2 text-center text-2xl text-white md:text-left">
-              American double-radius gouge
+              Used American double-radius gouge
             </h3>
             <h3 className="lg:text-4x max-w-max max-w-xl bg-black bg-opacity-50 p-1 pl-2 text-center text-2xl text-white md:text-left">
-              Used
+              Set up by John Symer
             </h3>
             <Button asChild className="w-fit md:w-fit">
               <a href="/used-kunibert-michel-oboe-gouging-machine/">Shop now</a>

@@ -1,6 +1,9 @@
+import Image from 'next/image';
+
 import { FragmentOf, graphql } from '~/client/graphql';
 
 import { BcImage } from '../bc-image';
+import Logo from '../bt-250.png';
 
 export const StoreLogoFragment = graphql(`
   fragment StoreLogoFragment on Settings {
@@ -27,11 +30,20 @@ interface Props {
 export const StoreLogo = ({ data }: Props) => {
   const { logoV2: logo, storeName } = data;
 
-  console.log(data.logoV2, "logo data ------")
-  console.log(storeName, "storeName ------")
-
   if (logo.__typename === 'StoreTextLogo') {
-    return <span className="text-2xl font-black">{logo.text}</span>;
+    return (
+      <div className="flex items-center">
+        <Image
+          alt="Boston terrier profile"
+          // className="opacity-50"
+          height={100}
+          priority
+          src={Logo}
+          width={100}
+        />
+        <span className="text-2xl font-black">{logo.text}</span>
+      </div>
+    );
   }
 
   return (

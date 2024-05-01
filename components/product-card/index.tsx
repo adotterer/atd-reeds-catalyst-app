@@ -1,5 +1,7 @@
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useId } from 'react';
+
 
 import {
   ProductCard as ComponentsProductCard,
@@ -14,6 +16,7 @@ import { Link } from '~/components/link';
 import { cn } from '~/lib/utils';
 
 import { BcImage } from '../bc-image';
+import Logo from '../bt-250.png';
 import { Pricing } from '../pricing';
 
 import { Cart } from './cart';
@@ -112,7 +115,17 @@ export const ProductCard = ({
               src={product.defaultImage.url ?? ''}
             />
           ) : (
-            <div className="h-full w-full bg-gray-200" />
+            <div className="flex h-full w-full items-center justify-center bg-gray-200">
+              <Image
+                alt="logo placeholder"
+                aria-hidden={true}
+                className="opacity-50"
+                height={100}
+                priority
+                src={Logo}
+                width={100}
+              />
+            </div>
           )}
         </div>
       </ProductCardImage>
