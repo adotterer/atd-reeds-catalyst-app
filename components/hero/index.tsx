@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
 import { Button } from '@bigcommerce/components/button';
-
 import {
   Slideshow,
   SlideshowAutoplayControl,
