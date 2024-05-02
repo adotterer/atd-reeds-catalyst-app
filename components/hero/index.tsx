@@ -36,7 +36,7 @@ export const Hero = () => (
               Discover a diverse selection of cane
             </h4>
             <p className="shadow-md max-w-max max-w-xl bg-blue-300 bg-opacity-80 px-2 text-2xl text-black text-center">
-              Chosen for both professional and student needs.
+              Chosen for professional and student needs.
             </p>
             <Button asChild className="w-fit md:w-fit">
               <a href="/cane/">Shop cane</a>
