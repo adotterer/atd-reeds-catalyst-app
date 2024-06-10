@@ -4,9 +4,11 @@ import debounce from 'lodash.debounce';
 import { Search, Loader2 as Spinner, X } from 'lucide-react';
 import { PropsWithChildren, useEffect, useRef, useState } from 'react';
 
-import { Button } from '@bigcommerce/components/button';
-import { Field, FieldControl, Form } from '@bigcommerce/components/form';
-import { Input, InputIcon } from '@bigcommerce/components/input';
+import { getQuickSearchResults } from '~/client/queries/get-quick-search-results';
+import { ExistingResultType } from '~/client/util';
+import { Button } from '~/components/ui/button';
+import { Field, FieldControl, Form } from '~/components/ui/form';
+import { Input, InputIcon } from '~/components/ui/input';
 import {
   Sheet,
   SheetClose,
@@ -14,9 +16,7 @@ import {
   SheetOverlay,
   SheetTitle,
   SheetTrigger,
-} from '@bigcommerce/components/sheet';
-import { getQuickSearchResults } from '~/client/queries/get-quick-search-results';
-import { ExistingResultType } from '~/client/util';
+} from '~/components/ui/sheet';
 import { cn } from '~/lib/utils';
 
 import { BcImage } from '../bc-image';
@@ -43,7 +43,7 @@ const fetchSearchResults = debounce(
     term: string,
     setSearchResults: React.Dispatch<React.SetStateAction<SearchResults | null>>,
   ) => {
-    const searchResults = await getSearchResults(term);
+    const { data: searchResults } = await getSearchResults(term);
 
     if (isSearchQuery(searchResults)) {
       setSearchResults(searchResults);
@@ -93,7 +93,7 @@ export const QuickSearch = ({ children, initialTerm = '' }: SearchProps) => {
       <SheetOverlay className="bg-transparent backdrop-blur-none">
         <SheetContent
           className={cn(
-            'flex min-h-[92px] flex-col px-6 py-4 data-[state=closed]:duration-0 data-[state=open]:duration-0 md:px-10 md:py-4 lg:px-12',
+            'flex min-h-[92px] flex-col px-4 py-4 data-[state=closed]:duration-0 data-[state=open]:duration-0 md:px-10 md:py-4 lg:px-12',
             searchResults && searchResults.products.length > 0 && 'h-full lg:h-3/4',
           )}
           side="top"
@@ -209,7 +209,7 @@ export const QuickSearch = ({ children, initialTerm = '' }: SearchProps) => {
 
                           <span className="flex flex-col">
                             <p className="text-lg font-bold lg:text-2xl">{product.name}</p>
-                            <Pricing prices={product.prices} />
+                            <Pricing data={product} />
                           </span>
                         </a>
                       </li>

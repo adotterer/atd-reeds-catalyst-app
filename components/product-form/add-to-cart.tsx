@@ -1,10 +1,10 @@
 'use client';
 
-import { ShoppingCart, Loader2 as Spinner } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useFormContext } from 'react-hook-form';
 
-import { Button } from '@bigcommerce/components/button';
+import { Button } from '~/components/ui/button';
 
 export const AddToCart = ({ disabled = false }: { disabled?: boolean }) => {
   const { formState } = useFormContext();
@@ -13,18 +13,9 @@ export const AddToCart = ({ disabled = false }: { disabled?: boolean }) => {
   const t = useTranslations('Product.Form');
 
   return (
-    <Button disabled={disabled || isSubmitting} type="submit">
-      {isSubmitting ? (
-        <>
-          <Spinner aria-hidden="true" className="animate-spin" />
-          <span className="sr-only">{t('processing')}</span>
-        </>
-      ) : (
-        <>
-          <ShoppingCart aria-hidden="true" className="mx-2" />
-          <span>{t('addToCart')}</span>
-        </>
-      )}
+    <Button disabled={disabled} loading={isSubmitting} loadingText={t('processing')} type="submit">
+      <ShoppingCart aria-hidden="true" className="mx-2" />
+      <span>{t('addToCart')}</span>
     </Button>
   );
 };

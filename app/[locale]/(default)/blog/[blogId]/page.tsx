@@ -1,19 +1,21 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { getFormatter } from 'next-intl/server';
 
+import { BcImage } from '~/components/bc-image';
+import { Link } from '~/components/link';
 import {
   BlogPostAuthor,
   BlogPostBanner,
   BlogPostDate,
   BlogPostImage,
   BlogPostTitle,
-} from '@bigcommerce/components/blog-post-card';
-import { Tag, TagContent } from '@bigcommerce/components/tag';
-import { getBlogPost } from '~/client/queries/get-blog-post';
-import { BcImage } from '~/components/bc-image';
-import { Link } from '~/components/link';
-import { SharingLinks } from '~/components/sharing-links';
+} from '~/components/ui/blog-post-card';
+import { Tag, TagContent } from '~/components/ui/tag';
 import { LocaleType } from '~/i18n';
+
+import { SharingLinks } from './_components/sharing-links';
+import { getBlogPageData } from './page-data';
 
 interface Props {
   params: {
@@ -23,7 +25,8 @@ interface Props {
 }
 
 export async function generateMetadata({ params: { blogId } }: Props): Promise<Metadata> {
-  const blogPost = await getBlogPost(+blogId);
+  const data = await getBlogPageData({ entityId: Number(blogId) });
+  const blogPost = data?.content.blog?.post;
 
   const title = blogPost?.seo.pageTitle ?? 'Blog';
 
@@ -32,10 +35,13 @@ export async function generateMetadata({ params: { blogId } }: Props): Promise<M
   };
 }
 
-export default async function BlogPostPage({ params: { blogId } }: Props) {
-  const blogPost = await getBlogPost(+blogId);
+export default async function BlogPostPage({ params: { blogId, locale } }: Props) {
+  const format = await getFormatter({ locale });
 
-  if (!blogPost || !blogPost.isVisibleInNavigation) {
+  const data = await getBlogPageData({ entityId: Number(blogId) });
+  const blogPost = data?.content.blog?.post;
+
+  if (!blogPost) {
     return notFound();
   }
 
@@ -45,7 +51,7 @@ export default async function BlogPostPage({ params: { blogId } }: Props) {
 
       <div className="mb-8 flex">
         <BlogPostDate className="mb-0">
-          {new Intl.DateTimeFormat('en-US').format(new Date(blogPost.publishedDate.utc))}
+          {format.dateTime(new Date(blogPost.publishedDate.utc))}
         </BlogPostDate>
         {blogPost.author ? <BlogPostAuthor>, by {blogPost.author}</BlogPostAuthor> : null}
       </div>
@@ -67,7 +73,7 @@ export default async function BlogPostPage({ params: { blogId } }: Props) {
           </BlogPostTitle>
           <BlogPostDate variant="inBanner">
             <span className="text-primary">
-              {new Intl.DateTimeFormat('en-US').format(new Date(blogPost.publishedDate.utc))}
+              {format.dateTime(new Date(blogPost.publishedDate.utc))}
             </span>
           </BlogPostDate>
         </BlogPostBanner>
@@ -83,12 +89,7 @@ export default async function BlogPostPage({ params: { blogId } }: Props) {
           </Link>
         ))}
       </div>
-      <SharingLinks
-        blogPostId={blogId}
-        blogPostImageUrl={blogPost.thumbnailImage?.url}
-        blogPostTitle={blogPost.seo.pageTitle}
-        vanityUrl={blogPost.vanityUrl}
-      />
+      <SharingLinks data={data} />
     </div>
   );
 }

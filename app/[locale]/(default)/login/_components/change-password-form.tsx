@@ -1,11 +1,10 @@
 'use client';
 
-import { Loader2 as Spinner } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { ChangeEvent, useRef, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 
-import { Button } from '@bigcommerce/components/button';
+import { Button } from '~/components/ui/button';
 import {
   Field,
   FieldControl,
@@ -13,9 +12,9 @@ import {
   FieldMessage,
   Form,
   FormSubmit,
-} from '@bigcommerce/components/form';
-import { Input } from '@bigcommerce/components/input';
-import { Message } from '@bigcommerce/components/message';
+} from '~/components/ui/form';
+import { Input } from '~/components/ui/input';
+import { Message } from '~/components/ui/message';
 import { useRouter } from '~/navigation';
 
 import { submitChangePasswordForm } from '../_actions/submit-change-password-form';
@@ -33,20 +32,11 @@ const SubmitButton = () => {
     <Button
       className="relative w-fit items-center px-8 py-2"
       data-button
-      disabled={pending}
+      loading={pending}
+      loadingText={t('spinnerText')}
       variant="primary"
     >
-      <>
-        {pending && (
-          <>
-            <span className="absolute z-10 flex h-full w-full items-center justify-center bg-gray-400">
-              <Spinner aria-hidden="true" className="animate-spin" />
-            </span>
-            <span className="sr-only">{t('spinnerText')}</span>
-          </>
-        )}
-        <span aria-hidden={pending}>{t('submitText')}</span>
-      </>
+      {t('submitText')}
     </Button>
   );
 };
@@ -78,7 +68,7 @@ export const ChangePasswordForm = ({ customerId, customerToken }: Props) => {
   const handleConfirmPasswordValidation = (e: ChangeEvent<HTMLInputElement>) => {
     const confirmPassword = e.target.value;
 
-    return setIsConfirmPasswordValid(confirmPassword === newPassword);
+    setIsConfirmPasswordValid(confirmPassword === newPassword);
   };
 
   if (state.status === 'success') {

@@ -3,7 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
-import { Select, SelectContent, SelectItem } from '@bigcommerce/components/select';
+import { Select, SelectContent, SelectItem } from '~/components/ui/select';
 
 export function SortBy() {
   const router = useRouter();
@@ -17,7 +17,7 @@ export function SortBy() {
 
     params.set('sort', sortValue);
 
-    return router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   return (

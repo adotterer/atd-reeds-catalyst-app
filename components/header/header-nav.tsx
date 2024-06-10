@@ -1,15 +1,15 @@
 import { ChevronDown, User } from 'lucide-react';
 
+import { getSessionCustomerId } from '~/auth';
+import { FragmentOf, graphql } from '~/client/graphql';
+import { Link } from '~/components/link';
 import {
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '@bigcommerce/components/navigation-menu';
-import { getSessionCustomerId } from '~/auth';
-import { FragmentOf, graphql } from '~/client/graphql';
-import { Link } from '~/components/link';
+} from '~/components/ui/navigation-menu';
 import { cn } from '~/lib/utils';
 
 export const HeaderNavFragment = graphql(`
@@ -49,7 +49,7 @@ export const HeaderNav = async ({ data, className, inCollapsedNav = false }: Pro
     <>
       <NavigationMenuList
         className={cn(
-          !inCollapsedNav && 'lg:gap-2',
+          !inCollapsedNav && 'lg:gap-4',
           inCollapsedNav && 'flex-col items-start pb-6',
           className,
         )}

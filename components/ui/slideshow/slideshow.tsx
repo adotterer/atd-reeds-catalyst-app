@@ -165,7 +165,7 @@ const SlideshowControls = forwardRef<ElementRef<'div'>, ComponentPropsWithRef<'d
 
     return (
       <div
-        className={cn('start-14 absolute bottom-4 flex items-center gap-4', className)}
+        className={cn('absolute bottom-12 start-12 flex items-center gap-4', className)}
         ref={ref}
         {...props}
       >
@@ -190,7 +190,7 @@ const SlideshowAutoplayControl = forwardRef<ElementRef<'button'>, SlideshowAutop
         return children({ isPaused });
       }
 
-      return isPaused ? <Play color="white" /> : <Pause color="white" />;
+      return isPaused ? <Play /> : <Pause />;
     };
 
     return (
@@ -222,7 +222,7 @@ const SlideshowNextIndicator = forwardRef<ElementRef<'button'>, ComponentPropsWi
   ({ children, className, onClick, ...props }, ref) => {
     const [, emblaApi] = useContext(SlideshowContext);
 
-    const scrollNext = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+    const scrollNext = (e: MouseEvent<HTMLButtonElement>) => {
       if (emblaApi) emblaApi.scrollNext();
       if (onClick) onClick(e);
     };
@@ -232,14 +232,14 @@ const SlideshowNextIndicator = forwardRef<ElementRef<'button'>, ComponentPropsWi
         aria-controls="slideshow-slides"
         aria-label="Next slide"
         className={cn(
-          'inline-flex h-12 w-12 items-center justify-center focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500',
+          'inline-flex h-12 w-12 items-center justify-center focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20',
           className,
         )}
         onClick={scrollNext}
         ref={ref}
         {...props}
       >
-        {children || <ArrowRight color="white" />}
+        {children || <ArrowRight />}
       </button>
     );
   },
@@ -253,7 +253,7 @@ const SlideshowPreviousIndicator = forwardRef<
 >(({ children, className, onClick, ...props }, ref) => {
   const [, emblaApi] = useContext(SlideshowContext);
 
-  const scrollPrev = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+  const scrollPrev = (e: MouseEvent<HTMLButtonElement>) => {
     if (emblaApi) emblaApi.scrollPrev();
     if (onClick) onClick(e);
   };
@@ -270,7 +270,7 @@ const SlideshowPreviousIndicator = forwardRef<
       ref={ref}
       {...props}
     >
-      {children || <ArrowLeft color="white" />}
+      {children || <ArrowLeft />}
     </button>
   );
 });
@@ -303,9 +303,9 @@ const SlideshowPagination = forwardRef<ElementRef<'span'>, SlideshowPaginationPr
       }
 
       return (
-        <span className="text-white">
+        <>
           {activeSlide} of {totalSlides}
-        </span>
+        </>
       );
     };
 

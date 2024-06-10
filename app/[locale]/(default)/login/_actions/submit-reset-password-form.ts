@@ -26,19 +26,19 @@ export const submitResetPasswordForm = async ({
       reCaptchaToken,
     });
 
-    if (response.customer.requestResetPassword.errors.length === 0) {
+    if (response.errors.length === 0) {
       return { status: 'success', data: parsedData };
     }
 
     return {
       status: 'error',
-      error: response.customer.requestResetPassword.errors.map((error) => error.message).join('\n'),
+      error: response.errors.map((error) => error.message).join('\n'),
     };
   } catch (error: unknown) {
     if (error instanceof Error || error instanceof z.ZodError) {
       return { status: 'error', error: error.message };
     }
 
-    return { status: 'error', error: 'Unknown error' };
+    return { status: 'error', error: 'Unknown error.' };
   }
 };

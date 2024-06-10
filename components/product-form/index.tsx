@@ -1,14 +1,13 @@
 'use client';
 
-import { AlertCircle, Check } from 'lucide-react';
-// import { AlertCircle, Check, Heart } from 'lucide-react';
+import { removeEdgesAndNodes } from '@bigcommerce/catalyst-client';
+import { AlertCircle, Check, Heart } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { FormProvider } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
-// import { Button } from '@bigcommerce/components/button';
-import { getProduct } from '~/client/queries/get-product';
-import { ExistingResultType } from '~/client/util';
+import { FragmentOf } from '~/client/graphql';
+import { Button } from '~/components/ui/button';
 
 import { Link } from '../link';
 
@@ -21,24 +20,24 @@ import { MultipleChoiceField } from './fields/multiple-choice-field';
 import { NumberField } from './fields/number-field';
 import { QuantityField } from './fields/quantity-field';
 import { TextField } from './fields/text-field';
+import { ProductFormFragment } from './fragment';
 import { ProductFormData, useProductForm } from './use-product-form';
 
-type Product = ExistingResultType<typeof getProduct>;
+interface Props {
+  product: FragmentOf<typeof ProductFormFragment>;
+}
 
-export const ProductForm = ({ product }: { product: Product }) => {
+export const ProductForm = ({ product }: Props) => {
   const t = useTranslations('Product.Form');
+  const productOptions = removeEdgesAndNodes(product.productOptions);
 
   const { handleSubmit, register, ...methods } = useProductForm();
 
-  const noInventory = product.inventory.aggregated
-    ? product.inventory.aggregated.availableToSell === 0
-    : false;
-
   const productFormSubmit = async (data: ProductFormData) => {
-    const result = await handleAddToCart(data);
+    const result = await handleAddToCart(data, product);
     const quantity = Number(data.quantity);
 
-    if (result?.error) {
+    if (result.error) {
       toast.error(result.error || t('errorMessage'), {
         icon: <AlertCircle className="text-error-secondary" />,
       });
@@ -72,10 +71,10 @@ export const ProductForm = ({ product }: { product: Product }) => {
 
   return (
     <FormProvider handleSubmit={handleSubmit} register={register} {...methods}>
-      <form className="@container flex flex-col gap-6" onSubmit={handleSubmit(productFormSubmit)}>
+      <form className="flex flex-col gap-6 @container" onSubmit={handleSubmit(productFormSubmit)}>
         <input type="hidden" value={product.entityId} {...register('product_id')} />
 
-        {product.productOptions?.map((option) => {
+        {productOptions.map((option) => {
           if (option.__typename === 'MultipleChoiceOption') {
             return <MultipleChoiceField key={option.entityId} option={option} />;
           }
@@ -104,16 +103,17 @@ export const ProductForm = ({ product }: { product: Product }) => {
         })}
 
         <QuantityField />
-        <div className="@md:flex-row mt-4 flex flex-col gap-4">
-          <AddToCart disabled={product.availabilityV2.status === 'Unavailable' || noInventory} />
 
-          {/* NOT IMPLEMENTED YET! */}
-          {/* <div className="w-full">
+        <div className="mt-4 flex flex-col gap-4 @md:flex-row">
+          <AddToCart disabled={product.availabilityV2.status === 'Unavailable'} />
+
+          {/* NOT IMPLEMENTED YET */}
+          <div className="w-full">
             <Button disabled type="submit" variant="secondary">
               <Heart aria-hidden="true" className="mx-2" />
               <span>{t('saveToWishlist')}</span>
             </Button>
-          </div> */}
+          </div>
         </div>
       </form>
     </FormProvider>

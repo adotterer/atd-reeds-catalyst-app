@@ -1,16 +1,28 @@
 import { useId } from 'react';
 
+import { graphql, ResultOf } from '~/client/graphql';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNextIndicator,
   CarouselPreviousIndicator,
-} from '@bigcommerce/components/carousel';
+} from '~/components/ui/carousel';
 
-import { Product, ProductCard } from '../product-card';
+import { ProductCard, ProductCardFragment } from '../product-card';
 
 import { Pagination } from './pagination';
+
+export const ProductCardCarouselFragment = graphql(
+  `
+    fragment ProductCardCarouselFragment on Product {
+      ...ProductCardFragment
+    }
+  `,
+  [ProductCardFragment],
+);
+
+type Product = ResultOf<typeof ProductCardCarouselFragment>;
 
 export const ProductCardCarousel = ({
   title,
@@ -20,18 +32,19 @@ export const ProductCardCarousel = ({
   showReviews = true,
 }: {
   title: string;
-  products: Array<Partial<Product>>;
+  products: Product[];
   showCart?: boolean;
   showCompare?: boolean;
   showReviews?: boolean;
 }) => {
   const id = useId();
+  const titleId = useId();
 
   if (products.length === 0) {
     return null;
   }
 
-  const groupedProducts = products.reduce<Array<Array<Partial<Product>>>>((batches, _, index) => {
+  const groupedProducts = products.reduce<Product[][]>((batches, _, index) => {
     if (index % 4 === 0) {
       batches.push([]);
     }
@@ -46,9 +59,9 @@ export const ProductCardCarousel = ({
   }, []);
 
   return (
-    <Carousel aria-labelledby="title" className="mb-14" opts={{ loop: true }}>
+    <Carousel aria-labelledby={titleId} className="mb-14" opts={{ loop: true }}>
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-black lg:text-4xl" id="title">
+        <h2 className="text-3xl font-black lg:text-4xl" id={titleId}>
           {title}
         </h2>
         <span className="no-wrap flex">
