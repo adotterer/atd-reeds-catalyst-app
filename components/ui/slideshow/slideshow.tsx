@@ -33,7 +33,7 @@ interface SlideshowProps extends ComponentPropsWithRef<'section'> {
 }
 
 const Slideshow = forwardRef<ElementRef<'section'>, SlideshowProps>(
-  ({ children, className, interval = 15_000, ...props }, ref) => {
+  ({ children, className, interval = 4_000, ...props }, ref) => {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
     const [isHoverPaused, setIsHoverPaused] = useState(false);

@@ -1,8 +1,10 @@
 import { useTranslations } from 'next-intl';
 import { useId } from 'react';
-
+import Image from 'next/image';
 import { graphql, ResultOf } from '~/client/graphql';
 import { Link } from '~/components/link';
+import Logo from '../bt-250.png';
+import { removeEdgesAndNodes } from '@bigcommerce/catalyst-client';
 import {
   ProductCard as ComponentsProductCard,
   ProductCardImage,
@@ -26,6 +28,17 @@ export const ProductCardFragment = graphql(
     fragment ProductCardFragment on Product {
       entityId
       name
+      description
+      customFields {
+        edges {
+          node {
+            entityId
+            name
+            value
+          }
+        }
+      }
+
       defaultImage {
         altText
         url: urlTemplate
@@ -66,6 +79,9 @@ export const ProductCard = ({
   const summaryId = useId();
   const t = useTranslations('Product.ProductSheet');
 
+  const customFields = product.customFields ? removeEdgesAndNodes(product?.customFields) : null;
+
+  
   if (!product.entityId) {
     return null;
   }
@@ -90,7 +106,17 @@ export const ProductCard = ({
               src={product.defaultImage.url}
             />
           ) : (
-            <div className="h-full w-full bg-gray-200" />
+            <div className="flex h-full w-full items-center justify-center bg-gray-200">
+              <Image
+                alt="logo placeholder"
+                aria-hidden={true}
+                className="opacity-50"
+                height={100}
+                priority
+                src={Logo}
+                width={100}
+              />
+            </div>
           )}
         </div>
       </ProductCardImage>
@@ -136,6 +162,15 @@ export const ProductCard = ({
             </div>
           </div>
         )}
+        <div>
+          {Boolean(customFields) &&
+            customFields?.map((customField) => (
+              <div key={customField.entityId}>
+                <h3 className="font-semibold">{customField.name}</h3>
+                <p>{customField.value}</p>
+              </div>
+            ))}
+        </div>
         <div className="flex flex-wrap items-end justify-between pt-1">
           <ProductCardInfoPrice>
             <Pricing data={product} />
