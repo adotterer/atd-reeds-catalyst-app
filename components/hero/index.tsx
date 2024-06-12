@@ -34,7 +34,7 @@ export const Hero = () => (
             <h4 className="shadow-md max-w-max bg-blue-300 bg-opacity-80 px-2 text-left text-3xl text-black">
               Now Accepting 
             </h4>
-            <h4 className="shadow-md max-w-max bg-blue-300 bg-opacity-80 px-2 text-left text-3xl text-black">
+            <h4 className="shadow-md max-w-max bg-blue-300 bg-opacity-80 px-2 text-center md:text-left text-3xl text-black">
               Oboe Reed Pre-Orders*
             </h4>
             <h4 className="shadow-md max-w-max bg-blue-300 bg-opacity-80 px-2 text-left text-md text-black">
