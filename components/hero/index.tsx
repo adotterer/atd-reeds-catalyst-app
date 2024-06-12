@@ -38,7 +38,7 @@ export const Hero = () => (
               Oboe Reed Pre-Orders*
             </h4>
             <h4 className="shadow-md max-w-max bg-blue-300 bg-opacity-80 px-2 text-left text-md text-black">
-              Current wait-time below
+              Current wait-time: mid-July
             </h4>
             <p className="shadow-md max-w-max max-w-xl bg-blue-300 bg-opacity-80 px-2 text-1xl text-black text-left">
               

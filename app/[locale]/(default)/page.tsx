@@ -80,8 +80,8 @@ export default async function Home({ params: { locale } }: Props) {
             
           <div>
             
-            <h1 className="text-2xl font-bold text-gray-900">*Pre Ordered Reeds:</h1>
-            <p className="text-xl text-gray-700 mt-2">Pre orders will start being fulfilled in <b>mid-July.</b></p>
+            <h3 className="text-2xl font-bold text-gray-900">*Pre orders will start being fulfilled in <b>mid-July.</b></h3>
+           
         </div>
       </div>
     </div>
