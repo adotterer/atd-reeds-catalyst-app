@@ -103,7 +103,7 @@ export default async function Home({ params: { locale } }: Props) {
       </div>
       <p className="text-3xl text-center mb-3">Discover Our Oboe Reeds</p>
       <div className="flex flex-col-reverse md:flex-row items-center justify-center">
-        <div className="flex md:w-1/6">
+        <div className="flex md:w-1/7 hidden md:block">
           <Image
               alt="Oboe Reed outline"
               className="mx-auto"
@@ -112,15 +112,15 @@ export default async function Home({ params: { locale } }: Props) {
               src="https://mshippoboe.s3.us-west-1.amazonaws.com/reed_outline.png"
             />
         </div>
-        <div className="md:w-5/6 p-4">
+        <div className="md:w-6/7 p-4">
           <div className="inline-flex flex-col-reverse md:flex-row">
               <div className="flex-1">
                 <h3 className="text-xl bg-yellow-300 p-4 m-2 text-center">Practice Reed</h3>
                 <div className="bg-yellow-300 p-4 m-2 text-left">
                   <ul className="pl-2 list-disc">
                     <li>Entry-level reed</li>
-                    <li>Student-Friendly</li>
-                    <li>Comfortable Response</li>
+                    <li>Student-friendly</li>
+                    <li>Comfortable response</li>
                     <li>Light resistance</li>
                   </ul>
                 </div>
@@ -135,8 +135,8 @@ export default async function Home({ params: { locale } }: Props) {
                <div className="bg-green-300 p-4 m-2 text-left">
                   <ul className="pl-2 list-disc">
                     <li>Ease of play</li>
-                    <li>Dependability</li>
-                    <li>Longevity</li>
+                    <li>Dependable</li>
+                    <li>Stable intonation</li>
                     <li>Great value</li>
                   </ul>
                 </div>
@@ -150,8 +150,8 @@ export default async function Home({ params: { locale } }: Props) {
                 <h3 className="text-xl bg-blue-300 p-4 m-2 text-center">Performance Reed</h3>
                 <div className="bg-blue-300 p-4 m-2 text-left">
                   <ul className="pl-2 list-disc">
-                    <li>Superior Tone Quality</li>
-                    <li>Reliability</li>
+                    <li>Superior tone quality</li>
+                    <li>Increased reliability</li>
                     <li>High-quality cane and materials</li>
                   </ul>
                 </div>
@@ -165,7 +165,8 @@ export default async function Home({ params: { locale } }: Props) {
                 <h3 className="text-xl bg-purple-300 p-4 m-2 text-center">Concerto Reed</h3>
                 <div className="bg-purple-300 p-4 m-2 text-left md:min-h-32">
                   <ul className="pl-2 list-disc">
-                  <li>Exceptional Tone</li>
+                    <li>Increased longevity</li>
+                    <li>Exceptional tone</li>
                     <li>Superior dynamic range</li>
                     <li>Premium materials</li>
                   </ul>
