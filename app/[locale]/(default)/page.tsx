@@ -81,7 +81,7 @@ export default async function Home({ params: { locale } }: Props) {
           <p className="pt-5 text-lg">
             At our core, we are professional oboists who understand the artistry and precision required to craft
             the perfect reed. Meet <Link href="https://www.matthewshippoboe.com/"><b>Matthew Shipp</b></Link> and
-            <Link href="https://adotterer.com"><b> Andrew Dotterer</b></Link> seasoned musicians who regularly perform with
+            <Link href="https://adotterer.com"><b> Andrew Dotterer</b></Link>, seasoned musicians who regularly perform with
             the Philadelphia Orchestra and Orchestra Iowa, among other distinguished ensembles in the region.
           </p>
           <p className="pt-5 text-lg">
@@ -113,7 +113,7 @@ export default async function Home({ params: { locale } }: Props) {
             />
         </div>
         <div className="md:w-6/7 p-4">
-          <div className="inline-flex flex-col-reverse md:flex-row">
+          <div className="inline-flex flex-col md:flex-row">
               <div className="flex-1">
                 <h3 className="text-xl bg-yellow-300 p-4 m-2 text-center">Practice Reed</h3>
                 <div className="bg-yellow-300 p-4 m-2 text-left">
