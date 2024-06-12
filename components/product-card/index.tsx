@@ -26,19 +26,17 @@ import { Compare } from './compare';
 export const ProductCardFragment = graphql(
   `
     fragment ProductCardFragment on Product {
-      entityId
-      name
-      description
       customFields {
         edges {
           node {
-            entityId
             name
             value
           }
         }
       }
-
+      entityId
+      name
+      description
       defaultImage {
         altText
         url: urlTemplate
@@ -79,9 +77,13 @@ export const ProductCard = ({
   const summaryId = useId();
   const t = useTranslations('Product.ProductSheet');
 
-  const customFields = product.customFields ? removeEdgesAndNodes(product?.customFields) : null;
+  const shortDescription = product.customFields ? removeEdgesAndNodes(product.customFields).reduce((curr, accum) => {
+    if(curr.name === "shortDescription") {
+      return curr;
+    }
+    return accum
+  },{name: "", value: ""}) : null;
 
-  
   if (!product.entityId) {
     return null;
   }
@@ -163,13 +165,11 @@ export const ProductCard = ({
           </div>
         )}
         <div>
-          {Boolean(customFields) &&
-            customFields?.map((customField) => (
-              <div key={customField.entityId}>
-                <h3 className="font-semibold">{customField.name}</h3>
-                <p>{customField.value}</p>
-              </div>
-            ))}
+          {shortDescription &&
+              (<div>
+                <p>{shortDescription.value}</p>
+              </div>)
+          }
         </div>
         <div className="flex flex-wrap items-end justify-between pt-1">
           <ProductCardInfoPrice>

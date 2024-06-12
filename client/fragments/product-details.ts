@@ -5,6 +5,14 @@ import { PRICES_FRAGMENT } from './prices';
 export const PRODUCT_DETAILS_FRAGMENT = graphql(
   `
     fragment ProductDetails on Product {
+     customFields {
+        edges {
+          node {
+            name
+            value
+          }
+        }
+      }
       entityId
       name
       description

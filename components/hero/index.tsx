@@ -14,7 +14,6 @@ import {
 
 import SlideshowBG from './gouger-ai-1.png';
 import SlideshowBG2 from './reed-hero-1.png';
-import SlideshowBG3 from './musicbg-3-extended.png';
 
 export const Hero = () => (
   <Slideshow interval={4000}>

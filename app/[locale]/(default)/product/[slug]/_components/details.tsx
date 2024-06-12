@@ -204,13 +204,13 @@ export const Details = ({ product }: Props) => {
               </p>
             </div>
           )}
-          {Boolean(customFields) &&
+          {/* {Boolean(customFields) &&
             customFields.map((customField) => (
               <div key={customField.entityId}>
                 <h3 className="font-semibold">{customField.name}</h3>
                 <p>{customField.value}</p>
               </div>
-            ))}
+            ))} */}
         </div>
       </div>
       <ProductSchema product={product} />
