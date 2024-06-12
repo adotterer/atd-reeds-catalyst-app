@@ -1,6 +1,6 @@
 import { removeEdgesAndNodes } from '@bigcommerce/catalyst-client';
 import { useFormatter, useTranslations } from 'next-intl';
-
+import { Description } from './description';
 import { FragmentOf, graphql } from '~/client/graphql';
 import { ProductForm } from '~/components/product-form';
 import { ProductFormFragment } from '~/components/product-form/fragment';
@@ -90,6 +90,11 @@ export const Details = ({ product }: Props) => {
       <h1 className="mb-4 text-4xl font-black lg:text-5xl">{product.name}</h1>
 
       <ReviewSummary data={product} />
+      <div className="pt-8 ">
+  
+        <Description product={product} /> 
+      </div>
+
 
       {product.prices && (
         <div className="my-6 text-2xl font-bold lg:text-3xl">
@@ -160,12 +165,12 @@ export const Details = ({ product }: Props) => {
       <div className="my-12">
         <h2 className="mb-4 text-xl font-bold md:text-2xl">{t('additionalDetails')}</h2>
         <div className="grid gap-3 sm:grid-cols-2">
-          {Boolean(product.sku) && (
+          {/* {Boolean(product.sku) && (
             <div>
               <h3 className="font-semibold">{t('sku')}</h3>
               <p>{product.sku}</p>
             </div>
-          )}
+          )} */}
           {Boolean(product.upc) && (
             <div>
               <h3 className="font-semibold">{t('upc')}</h3>
@@ -196,14 +201,14 @@ export const Details = ({ product }: Props) => {
               <p>{product.condition}</p>
             </div>
           )}
-          {Boolean(product.weight) && (
+          {/* {Boolean(product.weight) && (
             <div>
               <h3 className="font-semibold">{t('weight')}</h3>
               <p>
                 {product.weight?.value} {product.weight?.unit}
               </p>
             </div>
-          )}
+          )} */}
           {/* {Boolean(customFields) &&
             customFields.map((customField) => (
               <div key={customField.entityId}>
