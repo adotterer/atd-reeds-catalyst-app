@@ -75,6 +75,16 @@ export default async function Home({ params: { locale } }: Props) {
     <>
       <Hero />
 
+      <div className="flex items-center justify-center bg-gray-100 h-64">
+      <div className="flex bg-white shadow-lg rounded-lg p-6">
+            
+          <div>
+            
+            <h1 className="text-2xl font-bold text-gray-900">*Pre Ordered Reeds:</h1>
+            <p className="text-xl text-gray-700 mt-2">Pre orders will start being fulfilled in <b>mid-July.</b></p>
+        </div>
+      </div>
+    </div>
       <div className="flex flex-col md:flex-row items-center">
         <div className="w-full md:w-3/4 p-4">
         <p className="text-3xl">About us</p>

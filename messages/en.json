@@ -63,7 +63,7 @@
     "Form": {
       "errorMessage": "Something went wrong. Please try again.",
       "processing": "Processing...",
-      "addToCart": "Add to cart",
+      "addToCart": "Pre Order",
       "addedProductQuantity": "{cartItems, plural, =1 {1 Item} other {# Items}} added to <cartLink> your cart</cartLink>",
       "saveToWishlist": "Save to wishlist",
       "quantityLabel": "Quantity"
@@ -80,7 +80,7 @@
       "quickAdd": "Quick add",
       "addedProductQuantity": "{cartItems, plural, =1 {1 Item} other {# Items}} added to <cartLink> your cart</cartLink>",
       "processing": "Processing...",
-      "addToCart": "Add to cart",
+      "addToCart": "Pre Order",
       "compare": "Compare"
     }
   },

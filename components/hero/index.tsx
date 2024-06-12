@@ -35,13 +35,16 @@ export const Hero = () => (
               Now Accepting 
             </h4>
             <h4 className="shadow-md max-w-max bg-blue-300 bg-opacity-80 px-2 text-left text-3xl text-black">
-              Oboe Reed Pre-Orders!
+              Oboe Reed Pre-Orders*
+            </h4>
+            <h4 className="shadow-md max-w-max bg-blue-300 bg-opacity-80 px-2 text-left text-md text-black">
+              Current wait-time below
             </h4>
             <p className="shadow-md max-w-max max-w-xl bg-blue-300 bg-opacity-80 px-2 text-1xl text-black text-left">
               
             </p>
             <Button asChild className="w-fit md:w-fit">
-              <a href="/reeds/">Shop Oboe Reeds</a>
+              <a href="/reeds/">Oboe Reeds</a>
             </Button>
           </div>
         </div>
