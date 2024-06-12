@@ -101,9 +101,9 @@ export default async function Home({ params: { locale } }: Props) {
         </div>
 
       </div>
-
-      <div className="flex flex-col md:flex-row items-center">
-        <div className="md:w-1/6 p-4">
+      <p className="text-3xl text-center mb-3">Discover Our Oboe Reeds</p>
+      <div className="flex flex-col-reverse md:flex-row items-center justify-center">
+        <div className="md:w-1/7 p-4">
         <Image
             alt="Oboe Reed outline"
             className="mx-auto"
@@ -113,91 +113,74 @@ export default async function Home({ params: { locale } }: Props) {
             src="https://mshippoboe.s3.us-west-1.amazonaws.com/reed_outline.png"
           />
         </div>
-        <div className="w-full md:w-5/6 p-4">
-          <p className="text-3xl text-center mb-3">Discover Our Oboe Reeds</p>
+        <div className="md:w-6/7 p-4 overflow-x-auto md:overflow-x-visible max-w-[92vw]">
           <div className="flex">
-              <div className="flex-1 bg-yellow-300 p-4 m-2 text-center">
-                <h3 className="text-xl mb-2">Practice</h3>
+              <div className="flex-1">
+                <h3 className="text-xl bg-yellow-300 p-4 m-2 text-center">Practice Reed</h3>
+                <div className="bg-yellow-300 p-4 m-2 text-left max-h-56">
+                  <ul className="pl-2 list-disc">
+                    <li>Entry-level reed</li>
+                    <li>Student-Friendly</li>
+                    <li>Comfortable Response</li>
+                    <li>Light resistance</li>
+                  </ul>
+                </div>
+                <div className="bg-yellow-300 p-4 m-2">
+                  <Button asChild className="margin-auto">
+                    <a href="/practice-oboe-reed/">Shop now</a>
+                  </Button>
+                </div>
               </div>
-              <div className="flex-1 bg-green-300 p-4 m-2 text-center">
-               <h3 className="text-xl mb-2">Rehearsal</h3>
-              </div>
-              <div className="flex-1 bg-blue-300 p-4 m-2 text-center">
-                <h3 className="text-xl mb-2">Performance</h3>
-              </div>
-              <div className="flex-1 bg-purple-300 p-4 m-2 text-center">
-                <h3 className="text-xl mb-2">Concerto</h3>
-              </div>
-          </div>
-          <div className="flex">
-              <div className="flex-1 bg-yellow-300 p-4 m-2 left">
-                <ul className="pl-2 list-disc">
-                  <li>Entry-level reed</li>
-                  <li>Student-Friendly</li>
-                  <li>Comfortable Response</li>
-                  <li>Light resistance</li>
-                </ul>
-              </div>
-              <div className="flex-1 bg-green-300 p-4 m-2 text-left">
-                <ul className="pl-2 list-disc">
-                    <li>Ease of Play</li>
+              <div className="flex-1">
+               <h3 className="text-xl mb-2 bg-green-300 p-4 m-2 text-center">Rehearsal Reed</h3>
+               <div className="bg-green-300 p-4 m-2 text-left min-h-56 md:min-h-0">
+                  <ul className="pl-2 list-disc">
+                    <li>Ease of play</li>
                     <li>Dependability</li>
                     <li>Longevity</li>
-                    <li>Value</li>
-                </ul>
+                    <li>Great value</li>
+                  </ul>
+                </div>
+                <div className="bg-green-300 p-4 m-2">
+                  <Button asChild className="margin-auto">
+                  <a href="/rehearsal-oboe-reed/">Shop now</a>
+                  </Button>
+                </div>
               </div>
-              <div className="flex-1 bg-blue-300 p-4 m-2 text-left">
-                <ul className="pl-2 list-disc">
+              <div className="flex-1">
+                <h3 className="text-xl bg-blue-300 p-4 m-2 text-center">Performance Reed</h3>
+                <div className="bg-blue-300 p-4 m-2 text-left min-h-56 md:min-h-0">
+                  <ul className="pl-2 list-disc">
                     <li>Superior Tone Quality</li>
                     <li>Reliability</li>
                     <li>High-quality cane and materials</li>
-                </ul>
+                  </ul>
+                </div>
+                <div className="bg-blue-300 p-4 m-2">
+                  <Button asChild className="margin-auto">
+                    <a href="/performance-oboe-reed/">Shop now</a>
+                  </Button>
+                </div>
               </div>
-              <div className="flex-1 bg-purple-300 p-4 m-2 text-left">
-                <ul className="pl-2 list-disc">
-                    <li>Exceptional Tone</li>
+              <div className="flex-1">
+                <h3 className="text-xl bg-purple-300 p-4 m-2 text-center">Concerto Reed</h3>
+                <div className="bg-purple-300 p-4 m-2 text-left min-h-56 md:min-h-32">
+                  <ul className="pl-2 list-disc">
+                  <li>Exceptional Tone</li>
                     <li>Superior dynamic range</li>
                     <li>Premium materials</li>
-                </ul>
+                  </ul>
+                </div>
+                <div className="bg-purple-300 p-4 m-2">
+                  <Button asChild className="margin-auto">
+                    <a href="/concerto-oboe-reed/">Shop now</a>
+                  </Button>
+                </div>
               </div>
+            </div>
           </div>
-          <div className="flex">
-              <div className="flex-1 bg-yellow-300 p-4 m-2 left">
-                <Button asChild className="margin-auto">
-                  <a href="/practice-oboe-reed/">Shop now</a>
-                </Button>
-              </div>
-              <div className="flex-1 bg-green-300 p-4 m-2 text-center">
-                <Button asChild className="margin-auto">
-                  <a href="/rehearsal-oboe-reed/">Shop now</a>
-                </Button>
-              </div>
-              <div className="flex-1 bg-blue-300 p-4 m-2 text-center">
-                <Button asChild className="margin-auto">
-                  <a href="/performance-oboe-reed/">Shop now</a>
-                </Button>
-              </div>
-              <div className="flex-1 bg-purple-300 p-4 m-2 text-center">
-                <Button asChild className="margin-auto">
-                  <a href="/concerto-oboe-reed/">Shop now</a>
-                </Button>
-              </div>
-          </div>
-          <p className="pt-5 text-lg">
-            {/* <ul>
-              <li><b>Exceptional Quality:</b> Hand-crafted from the finest, hardest cane and premium materials.</li> 
-              <li><b>Professional Performance:</b> Superior tone, dynamic range, and response across all registers.</li> 
-              <li><b>Craftsmanship:</b> Meticulously designed for discerning professionals and dedicated students alike.</li> 
-            </ul> */}
-          </p>
-
-          
-    
         </div>
 
-       
-
-      </div>
       <div className="my-10">
         <NextIntlClientProvider locale={locale} messages={{ Product: messages.Product ?? {} }}>
           <ProductCardCarousel
