@@ -67,39 +67,7 @@ export const Footer = ({ data }: Props) => {
               </li>
             </ul>
           </div>
-          <div>
-            <h3 className="mb-4 text-lg font-bold">Contact Us</h3>
-            <ul className="flex flex-col gap-4">
-              <li className="flex">
-                <Link href="mailto:adotterer@gmail.com">
-                  Email
-                  <svg
-                    className="inline-block pl-2"
-                    fill="none"
-                    height="25"
-                    viewBox="0 0 25 25"
-                    width="25"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4.49994 4.17419H20.4999C21.5999 4.17419 22.4999 5.07419 22.4999 6.17419V18.1742C22.4999 19.2742 21.5999 20.1742 20.4999 20.1742H4.49994C3.39994 20.1742 2.49994 19.2742 2.49994 18.1742V6.17419C2.49994 5.07419 3.39994 4.17419 4.49994 4.17419Z"
-                      stroke="black"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M22.4999 6.17419L12.4999 13.1742L2.49994 6.17419"
-                      stroke="black"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </Link>
-              </li>
-  
-               <WebPageFooterMenu data={data.content} />
-            </ul>
-          </div>
+          <WebPageFooterMenu data={data.content} />
         </nav>
 
         <div className="flex flex-col gap-4 md:order-first md:grow">
