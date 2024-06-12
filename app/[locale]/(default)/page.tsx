@@ -2,6 +2,7 @@ import { removeEdgesAndNodes } from '@bigcommerce/catalyst-client';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Link } from '~/components/link';
+import { Button } from '~/components/ui/button';
 import { getSessionCustomerId } from '~/auth';
 import { client } from '~/client';
 import { graphql } from '~/client/graphql';
@@ -76,7 +77,7 @@ export default async function Home({ params: { locale } }: Props) {
 
       <div className="flex flex-col md:flex-row items-center">
         <div className="w-full md:w-3/4 p-4">
-        {/* <p className="text-3xl">About us...</p> */}
+        <p className="text-3xl">About us</p>
           <p className="pt-5 text-lg">
             At our core, we are professional oboists who understand the artistry and precision required to craft
             the perfect reed. Meet <Link href="https://www.matthewshippoboe.com/"><b>Matthew Shipp</b></Link> and
@@ -101,6 +102,102 @@ export default async function Home({ params: { locale } }: Props) {
 
       </div>
 
+      <div className="flex flex-col md:flex-row items-center">
+        <div className="md:w-1/6 p-4">
+        <Image
+            alt="Oboe Reed outline"
+            className="mx-auto"
+            width="120"
+            height="385"
+            priority
+            src="https://mshippoboe.s3.us-west-1.amazonaws.com/reed_outline.png"
+          />
+        </div>
+        <div className="w-full md:w-5/6 p-4">
+          <p className="text-3xl text-center mb-3">Discover Our Oboe Reeds</p>
+          <div className="flex">
+              <div className="flex-1 bg-yellow-300 p-4 m-2 text-center">
+                <h3 className="text-xl mb-2">Practice</h3>
+              </div>
+              <div className="flex-1 bg-green-300 p-4 m-2 text-center">
+               <h3 className="text-xl mb-2">Rehearsal</h3>
+              </div>
+              <div className="flex-1 bg-blue-300 p-4 m-2 text-center">
+                <h3 className="text-xl mb-2">Performance</h3>
+              </div>
+              <div className="flex-1 bg-purple-300 p-4 m-2 text-center">
+                <h3 className="text-xl mb-2">Concerto</h3>
+              </div>
+          </div>
+          <div className="flex">
+              <div className="flex-1 bg-yellow-300 p-4 m-2 left">
+                <ul className="pl-2 list-disc">
+                  <li>Entry-level reed</li>
+                  <li>Student-Friendly</li>
+                  <li>Comfortable Response</li>
+                  <li>Light resistance</li>
+                </ul>
+              </div>
+              <div className="flex-1 bg-green-300 p-4 m-2 text-left">
+                <ul className="pl-2 list-disc">
+                    <li>Ease of Play</li>
+                    <li>Dependability</li>
+                    <li>Longevity</li>
+                    <li>Value</li>
+                </ul>
+              </div>
+              <div className="flex-1 bg-blue-300 p-4 m-2 text-left">
+                <ul className="pl-2 list-disc">
+                    <li>Superior Tone Quality</li>
+                    <li>Reliability</li>
+                    <li>High-quality cane and materials</li>
+                </ul>
+              </div>
+              <div className="flex-1 bg-purple-300 p-4 m-2 text-left">
+                <ul className="pl-2 list-disc">
+                    <li>Exceptional Tone</li>
+                    <li>Superior dynamic range</li>
+                    <li>Premium materials</li>
+                </ul>
+              </div>
+          </div>
+          <div className="flex">
+              <div className="flex-1 bg-yellow-300 p-4 m-2 left">
+                <Button asChild className="margin-auto">
+                  <a href="/practice-oboe-reed/">Shop now</a>
+                </Button>
+              </div>
+              <div className="flex-1 bg-green-300 p-4 m-2 text-center">
+                <Button asChild className="margin-auto">
+                  <a href="/rehearsal-oboe-reed/">Shop now</a>
+                </Button>
+              </div>
+              <div className="flex-1 bg-blue-300 p-4 m-2 text-center">
+                <Button asChild className="margin-auto">
+                  <a href="/performance-oboe-reed/">Shop now</a>
+                </Button>
+              </div>
+              <div className="flex-1 bg-purple-300 p-4 m-2 text-center">
+                <Button asChild className="margin-auto">
+                  <a href="/concerto-oboe-reed/">Shop now</a>
+                </Button>
+              </div>
+          </div>
+          <p className="pt-5 text-lg">
+            {/* <ul>
+              <li><b>Exceptional Quality:</b> Hand-crafted from the finest, hardest cane and premium materials.</li> 
+              <li><b>Professional Performance:</b> Superior tone, dynamic range, and response across all registers.</li> 
+              <li><b>Craftsmanship:</b> Meticulously designed for discerning professionals and dedicated students alike.</li> 
+            </ul> */}
+          </p>
+
+          
+    
+        </div>
+
+       
+
+      </div>
       <div className="my-10">
         <NextIntlClientProvider locale={locale} messages={{ Product: messages.Product ?? {} }}>
           <ProductCardCarousel
