@@ -103,21 +103,20 @@ export default async function Home({ params: { locale } }: Props) {
       </div>
       <p className="text-3xl text-center mb-3">Discover Our Oboe Reeds</p>
       <div className="flex flex-col-reverse md:flex-row items-center justify-center">
-        <div className="md:w-1/7 p-4">
-        <Image
-            alt="Oboe Reed outline"
-            className="mx-auto"
-            width="120"
-            height="385"
-            priority
-            src="https://mshippoboe.s3.us-west-1.amazonaws.com/reed_outline.png"
-          />
+        <div className="flex md:w-1/6">
+          <Image
+              alt="Oboe Reed outline"
+              className="mx-auto"
+              width="120"
+              height="385"
+              src="https://mshippoboe.s3.us-west-1.amazonaws.com/reed_outline.png"
+            />
         </div>
-        <div className="md:w-6/7 p-4 overflow-x-auto md:overflow-x-visible max-w-[92vw]">
-          <div className="flex">
+        <div className="md:w-5/6 p-4">
+          <div className="inline-flex flex-col-reverse md:flex-row">
               <div className="flex-1">
                 <h3 className="text-xl bg-yellow-300 p-4 m-2 text-center">Practice Reed</h3>
-                <div className="bg-yellow-300 p-4 m-2 text-left max-h-56">
+                <div className="bg-yellow-300 p-4 m-2 text-left">
                   <ul className="pl-2 list-disc">
                     <li>Entry-level reed</li>
                     <li>Student-Friendly</li>
@@ -133,7 +132,7 @@ export default async function Home({ params: { locale } }: Props) {
               </div>
               <div className="flex-1">
                <h3 className="text-xl mb-2 bg-green-300 p-4 m-2 text-center">Rehearsal Reed</h3>
-               <div className="bg-green-300 p-4 m-2 text-left min-h-56 md:min-h-0">
+               <div className="bg-green-300 p-4 m-2 text-left">
                   <ul className="pl-2 list-disc">
                     <li>Ease of play</li>
                     <li>Dependability</li>
@@ -147,9 +146,9 @@ export default async function Home({ params: { locale } }: Props) {
                   </Button>
                 </div>
               </div>
-              <div className="flex-1">
+              <div className="flex-1 w-100">
                 <h3 className="text-xl bg-blue-300 p-4 m-2 text-center">Performance Reed</h3>
-                <div className="bg-blue-300 p-4 m-2 text-left min-h-56 md:min-h-0">
+                <div className="bg-blue-300 p-4 m-2 text-left">
                   <ul className="pl-2 list-disc">
                     <li>Superior Tone Quality</li>
                     <li>Reliability</li>
@@ -164,7 +163,7 @@ export default async function Home({ params: { locale } }: Props) {
               </div>
               <div className="flex-1">
                 <h3 className="text-xl bg-purple-300 p-4 m-2 text-center">Concerto Reed</h3>
-                <div className="bg-purple-300 p-4 m-2 text-left min-h-56 md:min-h-32">
+                <div className="bg-purple-300 p-4 m-2 text-left md:min-h-32">
                   <ul className="pl-2 list-disc">
                   <li>Exceptional Tone</li>
                     <li>Superior dynamic range</li>
