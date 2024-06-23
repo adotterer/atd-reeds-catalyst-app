@@ -3612,10 +3612,10 @@ type Content {
 
 """A country representation."""
 type Country {
-  """A country's ID."""
+  """A country's id."""
   entityId: Int!
 
-  """The 2-letter ISO Alpha-2 code for a country."""
+  """A country's 2 letters iso code."""
   code: String!
 
   """A country's name."""
@@ -3625,16 +3625,12 @@ type Country {
   statesOrProvinces: [StateOrProvince!]!
 }
 
-"""
-An input parameter to narrow down the countries you receive based on country name and code.
-"""
+"""Country's filter."""
 input CountryFiltersInput {
-  """The name of a country that you can use to filter results."""
+  """A name of a country to filter by."""
   name: String
 
-  """
-  The 2-letter ISO Alpha-2 code for a country that you can use to filter results.
-  """
+  """2 letters iso code of a country to filter by."""
   code: String
 }
 
@@ -4137,13 +4133,11 @@ type FormFields {
   ): [FormField!]!
 }
 
-"""Geography information."""
+"""A geography information."""
 type Geography {
   """A list of available countries."""
   countries(
-    """
-    An input parameter to narrow down the countries you receive based on country name and code.
-    """
+    """Country's filter."""
     filters: CountryFiltersInput
   ): [Country!]
 }
@@ -6552,7 +6546,7 @@ type Query {
   """An inventory"""
   inventory: Inventory!
 
-  """Geography information."""
+  """A geography information."""
   geography: Geography!
 }
 
@@ -7234,15 +7228,15 @@ type SpecialHour {
   closing: DateTime
 }
 
-"""A state or province representation."""
+"""A State or Province representation."""
 type StateOrProvince {
-  """An ID of a state or province."""
+  """An id of State or Province."""
   entityId: Int!
 
-  """A name of a state or province."""
+  """A name of State or Province."""
   name: String!
 
-  """An abbreviation of a state or province."""
+  """An abbreviation of State or Province."""
   abbreviation: String!
 }
 

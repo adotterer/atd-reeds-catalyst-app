@@ -12,60 +12,87 @@ import {
   SlideshowSlide,
 } from '~/components/ui/slideshow';
 
-import SlideshowBG from './slideshow-bg-01.jpg';
-
-const SlideshowBlurDataURL =
-  'data:image/jpeg;base64,/9j/4QC8RXhpZgAASUkqAAgAAAAGABIBAwABAAAAAQAAABoBBQABAAAAVgAAABsBBQABAAAAXgAAACgBAwABAAAAAgAAABMCAwABAAAAAQAAAGmHBAABAAAAZgAAAAAAAABIAAAAAQAAAEgAAAABAAAABgAAkAcABAAAADAyMTABkQcABAAAAAECAwAAoAcABAAAADAxMDABoAMAAQAAAP//AAACoAQAAQAAAAoAAAADoAQAAQAAAAcAAAAAAAAA/9sAQwADAgIDAgIDAwMDBAMDBAUIBQUEBAUKBwcGCAwKDAwLCgsLDQ4SEA0OEQ4LCxAWEBETFBUVFQwPFxgWFBgSFBUU/9sAQwEDBAQFBAUJBQUJFA0LDRQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU/8AAEQgABwAKAwERAAIRAQMRAf/EABUAAQEAAAAAAAAAAAAAAAAAAAMJ/8QAIBAAAQQBBAMAAAAAAAAAAAAAAQIDBAURABIhMQYjgf/EABYBAQEBAAAAAAAAAAAAAAAAAAEAAv/EABkRAAIDAQAAAAAAAAAAAAAAAAARAQIhQf/aAAwDAQACEQMRAD8AoZ5EzayKWW3Syo0GyKPTJlsF9ts9klsKTu46GQOfms2awJfAKywmt1sRNgqK7PS0gSHI4WltTmBuKQckJJzgE9aYa0tP/9k=';
+import SlideshowBG from './gouger-ai-1.png';
+import SlideshowBG2 from './reed-hero-1.png';
+import SlideshowBG3 from './musicbg-3-extended.png';
 
 export const Hero = () => (
-  <Slideshow>
+  <Slideshow interval={4000}>
     <SlideshowContent>
-      <SlideshowSlide>
-        <div className="relative">
+    <SlideshowSlide>
+        <div className="flex relative h-full">
           <Image
-            alt="an assortment of brandless products against a blank background"
-            blurDataURL={SlideshowBlurDataURL}
-            className="absolute -z-10 object-cover"
+            alt="Shop Reeds"
+            className="hover:bg-blend-darken absolute -z-10 object-right object-cover"
             fill
-            placeholder="blur"
             priority
-            sizes="(max-width: 1536px) 100vw, 1536px"
-            src={SlideshowBG}
+            src={SlideshowBG2}
           />
-          <div className="flex flex-col gap-4 px-12 pb-48 pt-36">
-            <h2 className="text-5xl font-black lg:text-6xl">25% Off Sale</h2>
-            <p className="max-w-xl">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+          <div className="flex flex-col items-center gap-3 md:gap-7 px-12 py-20 md:py-40 md:items-start">
+            <h4 className="shadow-md max-w-max bg-blue-300 bg-opacity-80 px-2 text-left text-3xl text-black">
+              Now Accepting 
+            </h4>
+            <h4 className="shadow-md max-w-max bg-blue-300 bg-opacity-80 px-2 text-center md:text-left text-3xl text-black">
+              Oboe Reed Pre-Orders*
+            </h4>
+            <h4 className="shadow-md max-w-max bg-blue-300 bg-opacity-80 px-2 text-left text-md text-black">
+              Current wait-time: mid-July
+            </h4>
+            <p className="shadow-md max-w-max max-w-xl bg-blue-300 bg-opacity-80 px-2 text-1xl text-black text-left">
+              
             </p>
-            <Button asChild className="w-fit">
-              <a href="/#">Shop now</a>
+            <Button asChild className="w-fit md:w-fit">
+              <a href="/reeds/">Oboe Reeds</a>
             </Button>
           </div>
         </div>
-      </SlideshowSlide>
-      <SlideshowSlide>
-        <div className="flex flex-col gap-4 bg-gray-100 px-12 pb-48 pt-36">
-          <h2 className="text-5xl font-black lg:text-6xl">Great Deals</h2>
-          <p className="max-w-xl">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-          </p>
-          <Button asChild className="w-fit">
-            <a href="/#">Shop now</a>
-          </Button>
+    </SlideshowSlide>
+    <SlideshowSlide>
+        <div className="flex relative h-full">
+          <Image
+            alt="Oboe lessons"
+            className="hover:bg-blend-darken absolute -z-10 object-right object-cover"
+            fill
+            priority
+            src={SlideshowBG3}
+          />
+          <div className="flex flex-col items-center gap-3 md:gap-7 px-12 py-20 md:py-40 md:items-start">
+            <h4 className="shadow-md max-w-max bg-blue-300 bg-opacity-80 px-2 text-left text-2xl text-black">
+              Looking for online oboe lessons?
+            </h4>
+            <h4 className="shadow-md max-w-max bg-blue-300 bg-opacity-80 px-2 text-left text-3xl text-black">
+              Matt is now accepting new online students!
+            </h4>
+            <Button asChild className="w-fit md:w-fit">
+              <a href="https://www.matthewshippoboe.com/contact">Contact Matt for more information</a>
+            </Button>
+          </div>
         </div>
-      </SlideshowSlide>
+    </SlideshowSlide>
       <SlideshowSlide>
-        <div className="flex flex-col gap-4 bg-gray-100 px-12 pb-48 pt-36">
-          <h2 className="text-5xl font-black lg:text-6xl">Low Prices</h2>
-          <p className="max-w-xl">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-          </p>
-          <Button asChild className="w-fit">
-            <a href="/#">Shop now</a>
-          </Button>
+        <div className="flexr relative h-full">
+          <Image
+            alt="Oboe Gouging Machine: Kunibert Michel"
+            className="absolute -z-10 object-cover object-right"
+            fill
+            priority
+            sizes="(max-width: 1536px) 100vw, 900px"
+            src={SlideshowBG}
+          />
+          <div className="flex flex-col items-center gap-4 px-12 py-36 md:items-start">
+            <h2 className="lg:text-4x max-w-max max-w-xl bg-black bg-opacity-50 p-1 pl-2 text-center text-4xl text-white sm:text-4xl md:text-left">
+              Kunibert Michel
+            </h2>
+            <h4 className="max-w-max bg-black bg-opacity-50 px-2 text-center text-3xl text-white sm:text-3xl md:text-left lg:text-3xl">
+              Oboe Gouging Machine
+            </h4>
+            <p className="max-w-max max-w-xl bg-black bg-opacity-50 px-2 text-center text-2xl text-white md:text-left">
+              Used American double-radius gouge.  11 mm bed
+            </p>
+            <Button asChild className="w-fit md:w-fit">
+              <a href="/used-kunibert-michel-oboe-gouging-machine/">Shop now</a>
+            </Button>
+          </div>
         </div>
       </SlideshowSlide>
     </SlideshowContent>
