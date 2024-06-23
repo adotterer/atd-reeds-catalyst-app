@@ -87,12 +87,9 @@ export default async function Home({ params: { locale } }: Props) {
     </div>
       <div className="flex flex-col md:flex-row items-center">
         <div className="w-full md:w-3/4 p-4">
-        <p className="text-3xl">About us</p>
-          <p className="pt-5 text-lg">
-            At our core, we are professional oboists who understand the artistry and precision required to craft
-            the perfect reed. Meet <Link href="https://www.matthewshippoboe.com/"><b>Matthew Shipp</b></Link> and
-            <Link href="https://adotterer.com"><b> Andrew Dotterer</b></Link>, seasoned musicians who regularly perform with
-            the Philadelphia Orchestra and Orchestra Iowa, among other distinguished ensembles in the region.
+        <p className="text-3xl">About us 👋</p>
+          <p className="pt-5 text-lg">We are oboists <Link href="https://www.matthewshippoboe.com/"><b>Matthew Shipp</b></Link> and
+            <Link href="https://adotterer.com"><b> Andrew Dotterer</b></Link>, welcome to our reed website! 
           </p>
           <p className="pt-5 text-lg">
             Our extensive experience in the professional orchestral scene gives us a deep understanding of what a reed needs to feel 
@@ -101,7 +98,6 @@ export default async function Home({ params: { locale } }: Props) {
           </p>
           <p className="pt-5 text-lg">
             Trust in our expertise and passion for music to provide you with reeds that enhance your playing experience.
-            Secure your perfect reeds in advance for a seamless and enjoyable musical journey.
           </p>
         </div>
 
