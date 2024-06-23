@@ -1,6 +1,6 @@
 import { FragmentOf, graphql } from '~/client/graphql';
 import { Footer as ComponentsFooter, FooterSection } from '~/components/ui/footer';
-import { Link } from '~/components/link';
+
 import { StoreLogo, StoreLogoFragment } from '../store-logo';
 
 import { ContactInformation, ContactInformationFragment } from './contact-information';
@@ -51,22 +51,10 @@ interface Props {
 export const Footer = ({ data }: Props) => {
   return (
     <ComponentsFooter>
-            <FooterSection className="flex flex-col gap-8 py-10 md:flex-row lg:gap-4">
+      <FooterSection className="flex flex-col gap-8 py-10 md:flex-row lg:gap-4">
         <nav className="grid flex-auto auto-cols-fr gap-8 sm:grid-flow-col">
           <CategoryFooterMenu data={data.categoryTree} />
           <BrandFooterMenu data={data.brands} />
-          {/* <WebPageFooterMenu data={data.content} /> */}
-          <div>
-            <h3 className="mb-4 text-lg font-bold">Oboists</h3>
-            <ul className="flex flex-col gap-4">
-              <li>
-                <Link href="https://adotterer.com">Andrew Dotterer</Link>
-              </li>
-              <li>
-                <Link href="https://www.matthewshippoboe.com/">Matthew Shipp</Link>
-              </li>
-            </ul>
-          </div>
           <WebPageFooterMenu data={data.content} />
         </nav>
 
@@ -80,26 +68,9 @@ export const Footer = ({ data }: Props) => {
           {data.settings && <SocialIcons data={data.settings} />}
         </div>
       </FooterSection>
-      {/* <FooterSection className="flex flex-col gap-8 py-10 md:flex-row lg:gap-4">
-        <nav className="grid flex-auto auto-cols-fr gap-8 sm:grid-flow-col">
-          <CategoryFooterMenu data={data.categoryTree} />
-          <BrandFooterMenu data={data.brands} />
-          <WebPageFooterMenu data={data.content} />
-        </nav>
-
-        <div className="flex flex-col gap-4 md:order-first md:grow">
-          {data.settings && (
-            <h3>
-              <StoreLogo data={data.settings} />
-            </h3>
-          )}
-          {data.settings && <ContactInformation data={data.settings} />}
-          {data.settings && <SocialIcons data={data.settings} />}
-        </div>
-      </FooterSection> */}
 
       <FooterSection className="flex flex-col justify-between gap-10 sm:flex-row sm:gap-8 sm:py-6">
-        {/* <PaymentMethods /> */}
+        <PaymentMethods />
 
         {data.settings && <Copyright data={data.settings} />}
       </FooterSection>

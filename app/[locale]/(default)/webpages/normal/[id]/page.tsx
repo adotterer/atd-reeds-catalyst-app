@@ -34,6 +34,7 @@ const getWebpageData = cache(async (variables: { id: string }) => {
     variables,
     fetchOptions: { next: { revalidate } },
   });
+
   if (data.node?.__typename !== 'NormalPage') {
     return null;
   }

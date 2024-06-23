@@ -61,11 +61,15 @@ export default async function Category({ params: { locale, slug }, searchParams 
   const { hasNextPage, hasPreviousPage, endCursor, startCursor } = productsCollection.pageInfo;
 
   return (
-    <div>
+    <div className="group">
       <Breadcrumbs category={category} />
       <NextIntlClientProvider
         locale={locale}
-        messages={{ FacetedGroup: messages.FacetedGroup ?? {}, Product: messages.Product ?? {} }}
+        messages={{
+          FacetedGroup: messages.FacetedGroup ?? {},
+          Product: messages.Product ?? {},
+          AddToCart: messages.AddToCart ?? {},
+        }}
       >
         <div className="md:mb-8 lg:flex lg:flex-row lg:items-center lg:justify-between">
           <h1 className="mb-4 text-4xl font-black lg:mb-0 lg:text-5xl">{category.name}</h1>
@@ -99,7 +103,10 @@ export default async function Category({ params: { locale, slug }, searchParams 
             <SubCategories categoryTree={categoryTree} />
           </FacetedSearch>
 
-          <section aria-labelledby="product-heading" className="col-span-4 lg:col-span-3">
+          <section
+            aria-labelledby="product-heading"
+            className="col-span-4 group-has-[[data-pending]]:animate-pulse lg:col-span-3"
+          >
             <h2 className="sr-only" id="product-heading">
               {t('products')}
             </h2>

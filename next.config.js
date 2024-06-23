@@ -22,16 +22,6 @@ const nextConfig = {
     ignoreDuringBuilds: !!process.env.CI,
     dirs: ['app', 'client', 'components', 'lib', 'middlewares'],
   },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'mshippoboe.s3.us-west-1.amazonaws.com',
-        port: '',
-        pathname: '/**',
-      },
-    ]
-  },
   // default URL generation in BigCommerce uses trailing slash
   trailingSlash: process.env.TRAILING_SLASH !== 'false',
   async headers() {

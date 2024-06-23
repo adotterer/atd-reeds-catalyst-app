@@ -1,10 +1,8 @@
 import { useTranslations } from 'next-intl';
 import { useId } from 'react';
-import Image from 'next/image';
+
 import { graphql, ResultOf } from '~/client/graphql';
 import { Link } from '~/components/link';
-import Logo from '../bt-250.png';
-import { removeEdgesAndNodes } from '@bigcommerce/catalyst-client';
 import {
   ProductCard as ComponentsProductCard,
   ProductCardImage,
@@ -19,24 +17,15 @@ import { cn } from '~/lib/utils';
 import { BcImage } from '../bc-image';
 import { Pricing, PricingFragment } from '../pricing';
 
-import { Cart } from './cart';
-import { CartFragment } from './cart/fragment';
+import { AddToCart } from './add-to-cart';
+import { AddToCartFragment } from './add-to-cart/fragment';
 import { Compare } from './compare';
 
 export const ProductCardFragment = graphql(
   `
     fragment ProductCardFragment on Product {
-      customFields {
-        edges {
-          node {
-            name
-            value
-          }
-        }
-      }
       entityId
       name
-      description
       defaultImage {
         altText
         url: urlTemplate
@@ -50,11 +39,11 @@ export const ProductCardFragment = graphql(
         numberOfReviews
         averageRating
       }
-      ...CartFragment
+      ...AddToCartFragment
       ...PricingFragment
     }
   `,
-  [PricingFragment, CartFragment],
+  [PricingFragment, AddToCartFragment],
 );
 
 interface Props {
@@ -76,13 +65,6 @@ export const ProductCard = ({
 }: Props) => {
   const summaryId = useId();
   const t = useTranslations('Product.ProductSheet');
-
-  const shortDescription = product.customFields ? removeEdgesAndNodes(product.customFields).reduce((curr, accum) => {
-    if(curr.name === "shortDescription") {
-      return curr;
-    }
-    return accum
-  },{name: "", value: ""}) : null;
 
   if (!product.entityId) {
     return null;
@@ -108,17 +90,7 @@ export const ProductCard = ({
               src={product.defaultImage.url}
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center bg-gray-200">
-              <Image
-                alt="logo placeholder"
-                aria-hidden={true}
-                className="opacity-50"
-                height={100}
-                priority
-                src={Logo}
-                width={100}
-              />
-            </div>
+            <div className="h-full w-full bg-gray-200" />
           )}
         </div>
       </ProductCardImage>
@@ -164,13 +136,6 @@ export const ProductCard = ({
             </div>
           </div>
         )}
-        <div>
-          {shortDescription &&
-              (<div>
-                <p>{shortDescription.value}</p>
-              </div>)
-          }
-        </div>
         <div className="flex flex-wrap items-end justify-between pt-1">
           <ProductCardInfoPrice>
             <Pricing data={product} />
@@ -185,7 +150,7 @@ export const ProductCard = ({
           )}
         </div>
       </ProductCardInfo>
-      {showCart && <Cart data={product} />}
+      {showCart && <AddToCart data={product} />}
     </ComponentsProductCard>
   );
 };
