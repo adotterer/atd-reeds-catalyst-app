@@ -64,6 +64,13 @@ export default async function Home({ params: { locale } }: Props) {
     <>
       <Hero />
 
+      <div className="flex items-center justify-center bg-gray-100 h-64">
+        <div className="flex bg-white shadow-lg rounded-lg p-6">
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900">*Pre orders will start being fulfilled in <b>mid-July.</b></h3>
+          </div>
+        </div>
+      </div>
       <div className="my-10">
         <NextIntlClientProvider locale={locale} messages={{ Product: messages.Product ?? {} }}>
           <ProductCardCarousel
