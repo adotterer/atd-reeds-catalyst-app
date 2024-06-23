@@ -2,7 +2,7 @@ import { FragmentOf, graphql } from '~/client/graphql';
 import { Footer as ComponentsFooter, FooterSection } from '~/components/ui/footer';
 
 import { StoreLogo, StoreLogoFragment } from '../store-logo';
-
+import { Link } from '~/components/link';
 import { ContactInformation, ContactInformationFragment } from './contact-information';
 import { Copyright, CopyrightFragment } from './copyright';
 import {
@@ -55,7 +55,19 @@ export const Footer = ({ data }: Props) => {
         <nav className="grid flex-auto auto-cols-fr gap-8 sm:grid-flow-col">
           <CategoryFooterMenu data={data.categoryTree} />
           <BrandFooterMenu data={data.brands} />
+          <div>
+            <h3 className="mb-4 text-lg font-bold">Oboists</h3>
+            <ul className="flex flex-col gap-4">
+              <li>
+                <Link href="https://adotterer.com">Andrew Dotterer</Link>
+              </li>
+              <li>
+                <Link href="https://www.matthewshippoboe.com/">Matthew Shipp</Link>
+              </li>
+            </ul>
+          </div>
           <WebPageFooterMenu data={data.content} />
+
         </nav>
 
         <div className="flex flex-col gap-4 md:order-first md:grow">

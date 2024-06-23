@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { useId } from 'react';
+import { removeEdgesAndNodes } from '@bigcommerce/catalyst-client';
 
 import { graphql, ResultOf } from '~/client/graphql';
 import { Link } from '~/components/link';
@@ -29,6 +30,14 @@ export const ProductCardFragment = graphql(
       defaultImage {
         altText
         url: urlTemplate
+      }
+      customFields {
+        edges {
+          node {
+            name
+            value
+          }
+        }
       }
       path
       brand {
@@ -65,6 +74,13 @@ export const ProductCard = ({
 }: Props) => {
   const summaryId = useId();
   const t = useTranslations('Product.ProductSheet');
+
+  const shortDescription = product.customFields ? removeEdgesAndNodes(product.customFields).reduce((curr, accum) => {
+    if(curr.name === "shortDescription") {
+      return curr;
+    }
+    return accum
+  },{name: "", value: ""}) : ({name: "", value: ""});
 
   if (!product.entityId) {
     return null;
@@ -136,6 +152,7 @@ export const ProductCard = ({
             </div>
           </div>
         )}
+        <p>{shortDescription.value}</p>
         <div className="flex flex-wrap items-end justify-between pt-1">
           <ProductCardInfoPrice>
             <Pricing data={product} />

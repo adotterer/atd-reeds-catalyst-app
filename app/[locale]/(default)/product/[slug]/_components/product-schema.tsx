@@ -14,6 +14,14 @@ export const ProductSchemaFragment = graphql(`
       name
       path
     }
+    customFields {
+      edges {
+        node {
+          name
+          value
+        }
+      }
+    }
     reviewSummary {
       averageRating
       numberOfReviews

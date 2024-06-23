@@ -1,5 +1,6 @@
 import { removeEdgesAndNodes } from '@bigcommerce/catalyst-client';
 import { useFormatter, useTranslations } from 'next-intl';
+import { Description } from './description';
 
 import { FragmentOf, graphql } from '~/client/graphql';
 import { ProductForm } from '~/components/product-form';
@@ -21,6 +22,7 @@ export const DetailsFragment = graphql(
       minPurchaseQuantity
       maxPurchaseQuantity
       condition
+      description
       weight {
         value
         unit
@@ -90,6 +92,12 @@ export const Details = ({ product }: Props) => {
       <h1 className="mb-4 text-4xl font-black lg:text-5xl">{product.name}</h1>
 
       <ReviewSummary data={product} />
+
+      <div className="pt-8 ">
+
+        <Description product={product} /> 
+      </div>
+
 
       {product.prices && (
         <div className="my-6 text-2xl font-bold lg:text-3xl">
@@ -196,21 +204,21 @@ export const Details = ({ product }: Props) => {
               <p>{product.condition}</p>
             </div>
           )}
-          {Boolean(product.weight) && (
+          {/* {Boolean(product.weight) && (
             <div>
               <h3 className="font-semibold">{t('weight')}</h3>
               <p>
                 {product.weight?.value} {product.weight?.unit}
               </p>
             </div>
-          )}
-          {Boolean(customFields) &&
+          )} */}
+          {/* {Boolean(customFields) &&
             customFields.map((customField) => (
               <div key={customField.entityId}>
                 <h3 className="font-semibold">{customField.name}</h3>
                 <p>{customField.value}</p>
               </div>
-            ))}
+            ))} */}
         </div>
       </div>
       <ProductSchema product={product} />
