@@ -67,8 +67,8 @@ export default async function Home({ params: { locale } }: Props) {
 
   return (
     <>
+      {/* <Hero /> */}
       {/* <CategoryHero /> */}
-
       <div className="flex flex-col md:flex-row items-center">
         <div className="w-full md:w-3/4 p-4">
           <h2 className="pb-4 text-3xl">Handmade oboe reeds, cane, and accessories</h2>
@@ -110,9 +110,6 @@ export default async function Home({ params: { locale } }: Props) {
       </div>
 
       <DiscoverBlock />
-
-      {/* <Hero /> */}
-
 
       {/* <div className="my-10">
         <NextIntlClientProvider locale={locale} messages={{ Product: messages.Product ?? {} }}>
