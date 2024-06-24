@@ -55,7 +55,7 @@ export const Footer = ({ data }: Props) => {
         <nav className="grid flex-auto auto-cols-fr gap-8 sm:grid-flow-col">
           <CategoryFooterMenu data={data.categoryTree} />
           <BrandFooterMenu data={data.brands} />
-          <div>
+          {/* <div>
             <h3 className="mb-4 text-lg font-bold">Oboists</h3>
             <ul className="flex flex-col gap-4">
               <li>
@@ -65,7 +65,7 @@ export const Footer = ({ data }: Props) => {
                 <Link href="https://www.matthewshippoboe.com/">Matthew Shipp</Link>
               </li>
             </ul>
-          </div>
+          </div> */}
           <WebPageFooterMenu data={data.content} />
 
         </nav>
