@@ -85,11 +85,7 @@ export default async function Home({ params: { locale } }: Props) {
             Trust in our expertise and passion for music to provide you with reeds that enhance your playing experience.
           </p>
         </div>
-
-        
-
         <div className="md:w-1/2 p-4">
-
           <ImageSlider />
         </div>
 
