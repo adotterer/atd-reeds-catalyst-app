@@ -67,25 +67,6 @@ export default async function Home({ params: { locale } }: Props) {
 
   return (
     <>
-      <div className="p-4 flex border-0 justify-evenly border-indigo-500 ">
-
-        {/* <div>
-          <Button asChild className="w-fit md:w-fit">
-            <a href="/reeds/">Oboe Reeds</a>
-          </Button>
-        </div>
-        <div>
-          <Button asChild className="w-fit md:w-fit">
-            <a href="/cane/">Cane</a>
-          </Button>
-        </div>
-        <div>
-          <Button asChild className="w-fit md:w-fit">
-            <a href="/cane/">Reed Making Accessories</a>
-          </Button>
-        </div> */}
-      </div>
-
       {/* <CategoryHero /> */}
       {/* 
       <div className="flex items-center justify-center bg-gray-100 h-64">
@@ -98,7 +79,8 @@ export default async function Home({ params: { locale } }: Props) {
 
       <div className="flex flex-col md:flex-row items-center">
         <div className="w-full md:w-3/4 p-4">
-          <p className="text-3xl">About us 👋</p>
+          <h2 className="pb-4 text-3xl">Handmade oboe reeds, cane, and accessories</h2>
+          <p className="text-2xl">About us 👋</p>
           <p className="pt-5 text-lg">We are oboists <Link href="https://www.matthewshippoboe.com/"><b>Matthew Shipp</b></Link> and
             <Link href="https://adotterer.com"><b> Andrew Dotterer</b></Link>, welcome to our reed website!
           </p>
