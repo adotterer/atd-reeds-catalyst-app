@@ -1,17 +1,17 @@
 import { removeEdgesAndNodes } from '@bigcommerce/catalyst-client';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { Button } from '~/components/ui/button';
+// import { Button } from '~/components/ui/button';
 import { ImageSlider } from '~/components/image-slider';
 import { DiscoverBlock } from '~/components/discover-block';
-import { CategoryHero } from '~/components/category-hero';
+// import { CategoryHero } from '~/components/category-hero';
 import { Link } from '~/components/link';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { getSessionCustomerId } from '~/auth';
 import { client } from '~/client';
 import { graphql } from '~/client/graphql';
 import { revalidate } from '~/client/revalidate-target';
-import { Hero } from '~/components/hero';
+// import { Hero } from '~/components/hero';
 import {
   ProductCardCarousel,
   ProductCardCarouselFragment,
