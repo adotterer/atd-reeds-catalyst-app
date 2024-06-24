@@ -4,6 +4,7 @@ import { FragmentOf, graphql } from '~/client/graphql';
 import { Button } from '../ui/button';
 import React from 'react';
 // import SlideshowBG2 from './reed-box.png';
+
 export const HeaderNavFragment = graphql(`
     fragment HeaderNavFragment on Site {
       categoryTree {
