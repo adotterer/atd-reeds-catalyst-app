@@ -68,14 +68,6 @@ export default async function Home({ params: { locale } }: Props) {
   return (
     <>
       {/* <CategoryHero /> */}
-      {/* 
-      <div className="flex items-center justify-center bg-gray-100 h-64">
-        <div className="flex bg-white shadow-lg rounded-lg p-6">
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900">*Pre orders will start being fulfilled in <b>mid-July.</b></h3>
-          </div>
-        </div>
-      </div> */}
 
       <div className="flex flex-col md:flex-row items-center">
         <div className="w-full md:w-3/4 p-4">
@@ -94,11 +86,31 @@ export default async function Home({ params: { locale } }: Props) {
           </p>
         </div>
 
+        
+
         <div className="md:w-1/2 p-4">
 
           <ImageSlider />
         </div>
 
+      </div>
+      <div className="flex flex-col items-center justify-center bg-gray-100 mb-8 gap-2 px-8 py-8">
+        <div className="flex bg-white shadow-lg rounded-lg p-6">
+          <div className="">
+              <h3 className="text-2xl font-bold text-gray-900">Now accepting pre orders! </h3>
+          </div>
+        </div>
+        <div className="flex-col bg-white shadow-lg rounded-lg p-6">
+          <div className="">
+              <h3 className="text-2xl font-bold text-gray-900">Starting shipments <b>July 15th</b></h3>
+          </div>
+        </div>
+        <div className="flex-col bg-white shadow-lg rounded-lg p-6">
+          <div className="">
+              <h3 className="text-2xl font-bold text-gray-900">Orders will be fulfilled in the order they are received.</h3>
+          </div>
+        </div>
+        
       </div>
 
       <DiscoverBlock />
