@@ -1,6 +1,6 @@
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { cva } from 'class-variance-authority';
-import { Check, ChevronDown } from 'lucide-react';
+import { Check, ChevronDown, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import { ComponentPropsWithRef, ElementRef, forwardRef } from 'react';
 
 import { cn } from '~/lib/utils';
@@ -27,20 +27,20 @@ interface SelectProps extends ComponentPropsWithRef<SelectType> {
   placeholder?: string;
   className?: string;
   'aria-label'?: string;
+  id?: string;
 }
 
-// We need to pass the ref to the Trigger component so we need to type it as such.
 const Select = forwardRef<ElementRef<SelectTriggerType>, SelectProps>(
-  ({ children, placeholder, className, variant, 'aria-label': ariaLabel, ...props }, ref) => {
+  ({ children, placeholder, className, variant, 'aria-label': ariaLabel, id, ...props }, ref) => {
     return (
       <SelectPrimitive.Root {...props}>
         <SelectPrimitive.Trigger
           aria-label={ariaLabel}
           className={cn(selectVariants({ variant, className }))}
+          id={id}
           ref={ref}
         >
           <SelectPrimitive.Value placeholder={placeholder} />
-          {/* TODO: For the sake of moving fast we are leaving this in, but in the future we need to figure out how enable custom icons */}
           <SelectPrimitive.Icon>
             <ChevronDown className="inline group-focus-visible:text-primary group-enabled:group-hover:text-primary" />
           </SelectPrimitive.Icon>
@@ -56,6 +56,36 @@ Select.displayName = SelectPrimitive.Root.displayName;
 
 type SelectContentType = typeof SelectPrimitive.Content;
 
+const SelectScrollUpButton = forwardRef<
+  React.ElementRef<typeof SelectPrimitive.ScrollUpButton>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton>
+>(({ className, ...props }, ref) => (
+  <SelectPrimitive.ScrollUpButton
+    className={cn('flex cursor-default items-center justify-center py-1', className)}
+    ref={ref}
+    {...props}
+  >
+    <ChevronUpIcon />
+  </SelectPrimitive.ScrollUpButton>
+));
+
+SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
+
+const SelectScrollDownButton = forwardRef<
+  React.ElementRef<typeof SelectPrimitive.ScrollDownButton>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton>
+>(({ className, ...props }, ref) => (
+  <SelectPrimitive.ScrollDownButton
+    className={cn('flex cursor-default items-center justify-center py-1', className)}
+    ref={ref}
+    {...props}
+  >
+    <ChevronDownIcon />
+  </SelectPrimitive.ScrollDownButton>
+));
+
+SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName;
+
 const SelectContent = forwardRef<
   ElementRef<SelectContentType>,
   ComponentPropsWithRef<SelectContentType>
@@ -66,13 +96,14 @@ const SelectContent = forwardRef<
         position={position}
         {...props}
         className={cn(
-          'max-h-radix-select-content-available-height relative w-full bg-white shadow-md',
+          'max-h-radix-select-content-available-height relative z-50 max-h-96 w-full bg-white shadow-md',
           position === 'popper' &&
             'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
           className,
         )}
         ref={ref}
       >
+        <SelectScrollUpButton />
         <SelectPrimitive.Viewport
           className={cn(
             'w-full',
@@ -82,6 +113,7 @@ const SelectContent = forwardRef<
         >
           {children}
         </SelectPrimitive.Viewport>
+        <SelectScrollDownButton />
       </SelectPrimitive.Content>
     </SelectPrimitive.Portal>
   );
@@ -103,7 +135,6 @@ const SelectItem = forwardRef<ElementRef<SelectItemType>, ComponentPropsWithRef<
         ref={ref}
       >
         <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-        {/* TODO: For the sake of moving fast we are leaving this in, but in the future we need to figure out how enable custom indicators */}
         <SelectPrimitive.ItemIndicator>
           <Check />
         </SelectPrimitive.ItemIndicator>

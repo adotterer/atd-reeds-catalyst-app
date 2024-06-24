@@ -7,11 +7,6 @@ import {
   submitChangePassword,
 } from '~/client/mutations/submit-change-password';
 
-export interface State {
-  status: 'idle' | 'error' | 'success';
-  message?: string;
-}
-
 export const submitChangePasswordForm = async (_previousState: unknown, formData: FormData) => {
   try {
     const parsedData = ChangePasswordSchema.parse({
@@ -27,13 +22,13 @@ export const submitChangePasswordForm = async (_previousState: unknown, formData
       customerEntityId: Number(parsedData.customerId),
     });
 
-    if (response.customer.resetPassword.errors.length === 0) {
+    if (response.errors.length === 0) {
       return { status: 'success', message: '' };
     }
 
     return {
       status: 'error',
-      message: response.customer.resetPassword.errors.map((error) => error.message).join('\n'),
+      message: response.errors.map((error) => error.message).join('\n'),
     };
   } catch (error: unknown) {
     if (error instanceof ZodError) {
@@ -52,6 +47,6 @@ export const submitChangePasswordForm = async (_previousState: unknown, formData
       };
     }
 
-    return { status: 'error', message: 'Unknown error' };
+    return { status: 'error', message: 'Unknown error.' };
   }
 };

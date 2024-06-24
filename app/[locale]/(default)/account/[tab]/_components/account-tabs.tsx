@@ -3,8 +3,8 @@
 import { useTranslations } from 'next-intl';
 import { PropsWithChildren } from 'react';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@bigcommerce/components/tabs';
 import { Link } from '~/components/link';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
 
 import { TabType } from '../layout';
 
@@ -18,7 +18,7 @@ export const AccountTabs = ({ children, activeTab, tabs }: Props) => {
 
   return (
     <Tabs activationMode="manual" defaultValue={activeTab}>
-      <TabsList aria-label={t('accountTabsLabel')} className="mb-5 pb-3">
+      <TabsList aria-label={t('accountTabsLabel')} className="mb-5 pb-3 pt-1">
         {tabs.map((tab) => (
           <TabsTrigger asChild key={tab} value={tab}>
             <Link

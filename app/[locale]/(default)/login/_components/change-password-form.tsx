@@ -1,11 +1,10 @@
 'use client';
 
-import { Loader2 as Spinner } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { ChangeEvent, useRef, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 
-import { Button } from '@bigcommerce/components/button';
+import { Button } from '~/components/ui/button';
 import {
   Field,
   FieldControl,
@@ -13,11 +12,12 @@ import {
   FieldMessage,
   Form,
   FormSubmit,
-} from '@bigcommerce/components/form';
-import { Input } from '@bigcommerce/components/input';
-import { Message } from '@bigcommerce/components/message';
+} from '~/components/ui/form';
+import { Input } from '~/components/ui/input';
+import { Message } from '~/components/ui/message';
 import { useRouter } from '~/navigation';
 
+import { useAccountStatusContext } from '../../account/[tab]/_components/account-status-provider';
 import { submitChangePasswordForm } from '../_actions/submit-change-password-form';
 
 interface Props {
@@ -33,20 +33,11 @@ const SubmitButton = () => {
     <Button
       className="relative w-fit items-center px-8 py-2"
       data-button
-      disabled={pending}
+      loading={pending}
+      loadingText={t('spinnerText')}
       variant="primary"
     >
-      <>
-        {pending && (
-          <>
-            <span className="absolute z-10 flex h-full w-full items-center justify-center bg-gray-400">
-              <Spinner aria-hidden="true" className="animate-spin" />
-            </span>
-            <span className="sr-only">{t('spinnerText')}</span>
-          </>
-        )}
-        <span aria-hidden={pending}>{t('submitText')}</span>
-      </>
+      {t('submitText')}
     </Button>
   );
 };
@@ -61,6 +52,7 @@ export const ChangePasswordForm = ({ customerId, customerToken }: Props) => {
 
   const [newPassword, setNewPasssword] = useState('');
   const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(true);
+  const { setAccountState } = useAccountStatusContext();
 
   const t = useTranslations('Account.ChangePassword');
   let messageText = '';
@@ -69,25 +61,22 @@ export const ChangePasswordForm = ({ customerId, customerToken }: Props) => {
     messageText = state.message;
   }
 
-  if (state.status === 'success') {
-    messageText = t('successMessage');
-  }
-
   const handleNewPasswordChange = (e: ChangeEvent<HTMLInputElement>) =>
     setNewPasssword(e.target.value);
   const handleConfirmPasswordValidation = (e: ChangeEvent<HTMLInputElement>) => {
     const confirmPassword = e.target.value;
 
-    return setIsConfirmPasswordValid(confirmPassword === newPassword);
+    setIsConfirmPasswordValid(confirmPassword === newPassword);
   };
 
   if (state.status === 'success') {
-    setTimeout(() => router.push('/login'), 2000);
+    setAccountState({ status: 'success', message: t('confirmChangePassword') });
+    router.push('/login');
   }
 
   return (
     <>
-      {(state.status === 'error' || state.status === 'success') && (
+      {state.status === 'error' && (
         <Message className="mb-8 w-full text-gray-500" variant={state.status}>
           <p>{messageText}</p>
         </Message>

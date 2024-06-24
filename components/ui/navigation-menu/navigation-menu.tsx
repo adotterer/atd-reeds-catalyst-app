@@ -51,7 +51,7 @@ const NavigationMenu = forwardRef<
           <div className="relative">
             <div
               className={cn(
-                'max-w-full group flex min-h-[92px] items-center justify-between gap-0 bg-white px-0 2xl:container sm:px-10 lg:gap-8 lg:px-12 2xl:mx-auto 2xl:px-0',
+                'group flex min-h-[92px] items-center justify-between gap-1 overflow-y-visible bg-white px-4 2xl:container sm:px-10 lg:gap-8 lg:px-12 2xl:mx-auto 2xl:px-0',
                 className,
               )}
             >
@@ -119,7 +119,7 @@ const NavigationMenuContent = forwardRef<
   return (
     <NavigationMenuPrimitive.Content
       className={cn(
-        '2xl:container  2xl:mx-auto',
+        '2xl:container 2xl:mx-auto',
         !isExpanded &&
           'data-[motion^=from-]:animate-in data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52',
         isExpanded && 'duration-200 animate-in slide-in-from-top-2',
@@ -218,7 +218,7 @@ const NavigationMenuCollapsed = forwardRef<ElementRef<'div'>, ComponentPropsWith
     return (
       <div
         className={cn(
-          'in-collapsed-nav group absolute start-0 top-full z-50 w-full bg-white px-6 pb-6 duration-200 animate-in slide-in-from-top-5 2xl:container sm:px-10 lg:px-12 2xl:mx-auto 2xl:px-0',
+          'in-collapsed-nav group absolute start-0 top-full z-50 w-full bg-white px-4 pb-6 duration-200 animate-in slide-in-from-top-5 2xl:container sm:px-10 lg:px-12 2xl:mx-auto 2xl:px-0',
           className,
           !isExpanded && 'hidden',
         )}

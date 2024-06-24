@@ -2,8 +2,9 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { useTransition } from 'react';
 
-import { Tag, TagAction, TagContent } from '@bigcommerce/components/tag';
+import { Tag, TagAction, TagContent } from '~/components/ui/tag';
 
 import type { Facet, PageType, PublicParamKeys } from '../types';
 
@@ -20,7 +21,7 @@ interface FacetProps<Key extends string> {
 
 const mapFacetsToRefinements = ({ facets, pageType }: Props) =>
   facets
-    .map<Array<FacetProps<PublicParamKeys | string>>>((facet) => {
+    .map<Array<FacetProps<string>>>((facet) => {
       switch (facet.__typename) {
         case 'BrandSearchFilter':
           if (pageType === 'brand') {
@@ -43,7 +44,7 @@ const mapFacetsToRefinements = ({ facets, pageType }: Props) =>
           return facet.categories
             .filter((category) => category.isSelected)
             .map<FacetProps<PublicParamKeys>>(({ name, entityId }) => ({
-              key: 'category',
+              key: 'categoryIn',
               display_name: name,
               value: String(entityId),
             }));
@@ -110,6 +111,8 @@ export const RefineBy = (props: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
+
   const refinements = mapFacetsToRefinements(props);
   const t = useTranslations('FacetedGroup.FacetedSearch.RefineBy');
 
@@ -120,11 +123,15 @@ export const RefineBy = (props: Props) => {
 
     const params = new URLSearchParams(filteredParams);
 
-    return router.push(`${pathname}?${params.toString()}`);
+    startTransition(() => {
+      router.push(`${pathname}?${params.toString()}`);
+    });
   };
 
   const clearAllRefinements = () => {
-    return router.push(pathname);
+    startTransition(() => {
+      router.push(pathname);
+    });
   };
 
   if (!refinements.length) {
@@ -132,7 +139,7 @@ export const RefineBy = (props: Props) => {
   }
 
   return (
-    <div>
+    <div data-pending={isPending ? '' : undefined}>
       <div className="flex flex-row items-center justify-between pb-2">
         <h3 className="text-2xl font-bold">{t('refineBy')}</h3>
         {/* TODO: Make subtle variant */}

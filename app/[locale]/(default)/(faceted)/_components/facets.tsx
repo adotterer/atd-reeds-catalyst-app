@@ -2,20 +2,20 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useRef, useTransition } from 'react';
 
+import { Link } from '~/components/link';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@bigcommerce/components/accordion';
-import { Button } from '@bigcommerce/components/button';
-import { Checkbox } from '@bigcommerce/components/checkbox';
-import { Input } from '@bigcommerce/components/input';
-import { Label } from '@bigcommerce/components/label';
-import { Rating } from '@bigcommerce/components/rating';
-import { Link } from '~/components/link';
+} from '~/components/ui/accordion';
+import { Button } from '~/components/ui/button';
+import { Checkbox } from '~/components/ui/checkbox';
+import { Input } from '~/components/ui/input';
+import { Label } from '~/components/ui/label';
+import { Rating } from '~/components/ui/rating';
 import { cn } from '~/lib/utils';
 
 import type { Facet, PageType } from '../types';
@@ -46,6 +46,8 @@ export const Facets = ({ facets, pageType }: Props) => {
   const ref = useRef<HTMLFormElement>(null);
   const router = useRouter();
   const pathname = usePathname();
+  const [isPending, startTransition] = useTransition();
+
   const searchParams = useSearchParams();
   const t = useTranslations('FacetedGroup.FacetedSearch.Facets');
 
@@ -65,7 +67,7 @@ export const Facets = ({ facets, pageType }: Props) => {
     const searchParam = searchParams.get('term');
     const filteredSearchParams = Array.from(formData.entries())
       .filter((entry): entry is [string, string] => {
-        return entry instanceof File === false;
+        return !(entry instanceof File);
       })
       .filter(([, value]) => value !== '');
 
@@ -81,12 +83,14 @@ export const Facets = ({ facets, pageType }: Props) => {
       newSearchParams.append('term', searchParam);
     }
 
-    router.push(`${pathname}?${newSearchParams.toString()}`);
+    startTransition(() => {
+      router.push(`${pathname}?${newSearchParams.toString()}`);
+    });
   };
 
   return (
     <Accordion defaultValue={defaultOpenFacets} type="multiple">
-      <form onSubmit={handleSubmit} ref={ref}>
+      <form data-pending={isPending ? '' : undefined} onSubmit={handleSubmit} ref={ref}>
         {facets.map((facet) => {
           if (facet.__typename === 'BrandSearchFilter' && pageType !== 'brand') {
             return (
@@ -151,7 +155,7 @@ export const Facets = ({ facets, pageType }: Props) => {
                           aria-labelledby={labelId}
                           defaultChecked={category.isSelected}
                           id={id}
-                          name="category"
+                          name="categoryIn"
                           onCheckedChange={submitForm}
                           value={category.entityId}
                         />

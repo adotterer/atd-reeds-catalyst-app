@@ -3,34 +3,35 @@ import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
-import { getCategory } from '~/client/queries/get-category';
+import { Breadcrumbs } from '~/components/breadcrumbs';
 import { ProductCard } from '~/components/product-card';
 import { LocaleType } from '~/i18n';
 
-import { Breadcrumbs } from '../../_components/breadcrumbs';
 import { FacetedSearch } from '../../_components/faceted-search';
 import { MobileSideNav } from '../../_components/mobile-side-nav';
 import { Pagination } from '../../_components/pagination';
 import { SortBy } from '../../_components/sort-by';
-import { SubCategories } from '../../_components/sub-categories';
 import { fetchFacetedSearch } from '../../fetch-faceted-search';
+
+import { SubCategories } from './_components/sub-categories';
+import { getCategoryPageData } from './page-data';
 
 interface Props {
   params: {
     slug: string;
     locale: LocaleType;
   };
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Record<string, string | string[] | undefined>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const categoryId = Number(params.slug);
 
-  const category = await getCategory({
+  const data = await getCategoryPageData({
     categoryId,
   });
 
-  const title = category?.name;
+  const title = data.category?.name;
 
   return {
     title,
@@ -45,13 +46,11 @@ export default async function Category({ params: { locale, slug }, searchParams 
   const messages = await getMessages({ locale });
 
   const categoryId = Number(slug);
-  const search = await fetchFacetedSearch({ ...searchParams, category: [slug] });
 
-  // We will only need a partial of this query to fetch the category name and breadcrumbs.
-  // The rest of the arguments are useless at this point.
-  const category = await getCategory({
-    categoryId,
-  });
+  const [{ category, categoryTree }, search] = await Promise.all([
+    getCategoryPageData({ categoryId }),
+    fetchFacetedSearch({ ...searchParams, category: categoryId }),
+  ]);
 
   if (!category) {
     return notFound();
@@ -62,11 +61,15 @@ export default async function Category({ params: { locale, slug }, searchParams 
   const { hasNextPage, hasPreviousPage, endCursor, startCursor } = productsCollection.pageInfo;
 
   return (
-    <div>
-      <Breadcrumbs breadcrumbs={category.breadcrumbs.items} category={category.name} />
+    <div className="group">
+      <Breadcrumbs category={category} />
       <NextIntlClientProvider
         locale={locale}
-        messages={{ FacetedGroup: messages.FacetedGroup ?? {}, Product: messages.Product ?? {} }}
+        messages={{
+          FacetedGroup: messages.FacetedGroup ?? {},
+          Product: messages.Product ?? {},
+          AddToCart: messages.AddToCart ?? {},
+        }}
       >
         <div className="md:mb-8 lg:flex lg:flex-row lg:items-center lg:justify-between">
           <h1 className="mb-4 text-4xl font-black lg:mb-0 lg:text-5xl">{category.name}</h1>
@@ -78,7 +81,7 @@ export default async function Category({ params: { locale, slug }, searchParams 
                 headingId="mobile-filter-heading"
                 pageType="category"
               >
-                <SubCategories categoryId={categoryId} />
+                <SubCategories categoryTree={categoryTree} />
               </FacetedSearch>
             </MobileSideNav>
             <div className="flex w-full flex-col items-start gap-4 md:flex-row md:items-center md:justify-end md:gap-6">
@@ -97,10 +100,13 @@ export default async function Category({ params: { locale, slug }, searchParams 
             headingId="desktop-filter-heading"
             pageType="category"
           >
-            <SubCategories categoryId={categoryId} />
+            <SubCategories categoryTree={categoryTree} />
           </FacetedSearch>
 
-          <section aria-labelledby="product-heading" className="col-span-4 lg:col-span-3">
+          <section
+            aria-labelledby="product-heading"
+            className="col-span-4 group-has-[[data-pending]]:animate-pulse lg:col-span-3"
+          >
             <h2 className="sr-only" id="product-heading">
               {t('products')}
             </h2>
@@ -130,3 +136,5 @@ export default async function Category({ params: { locale, slug }, searchParams 
     </div>
   );
 }
+
+export const runtime = 'edge';

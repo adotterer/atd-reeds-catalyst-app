@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
-import { getBrand } from '~/client/queries/get-brand';
 import { ProductCard } from '~/components/product-card';
 import { LocaleType } from '~/i18n';
 
@@ -13,20 +12,20 @@ import { Pagination } from '../../_components/pagination';
 import { SortBy } from '../../_components/sort-by';
 import { fetchFacetedSearch } from '../../fetch-faceted-search';
 
+import { getBrand } from './page-data';
+
 interface Props {
   params: {
     slug: string;
     locale: LocaleType;
   };
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Record<string, string | string[] | undefined>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const brandId = Number(params.slug);
 
-  const brand = await getBrand({
-    brandId,
-  });
+  const brand = await getBrand({ entityId: brandId });
 
   const title = brand?.name;
 
@@ -44,11 +43,10 @@ export default async function Brand({ params: { slug, locale }, searchParams }: 
 
   const brandId = Number(slug);
 
-  const search = await fetchFacetedSearch({ ...searchParams, brand: [slug] });
-
-  const brand = await getBrand({
-    brandId,
-  });
+  const [brand, search] = await Promise.all([
+    getBrand({ entityId: brandId }),
+    fetchFacetedSearch({ ...searchParams, brand: [slug] }),
+  ]);
 
   if (!brand) {
     notFound();
@@ -59,10 +57,14 @@ export default async function Brand({ params: { slug, locale }, searchParams }: 
   const { hasNextPage, hasPreviousPage, endCursor, startCursor } = productsCollection.pageInfo;
 
   return (
-    <div>
+    <div className="group">
       <NextIntlClientProvider
         locale={locale}
-        messages={{ FacetedGroup: messages.FacetedGroup ?? {}, Product: messages.Product ?? {} }}
+        messages={{
+          FacetedGroup: messages.FacetedGroup ?? {},
+          Product: messages.Product ?? {},
+          AddToCart: messages.AddToCart ?? {},
+        }}
       >
         <div className="md:mb-8 lg:flex lg:flex-row lg:items-center lg:justify-between">
           <h1 className="mb-4 text-4xl font-black lg:mb-0 lg:text-5xl">{brand.name}</h1>
@@ -92,7 +94,10 @@ export default async function Brand({ params: { slug, locale }, searchParams }: 
             pageType="brand"
           />
 
-          <section aria-labelledby="product-heading" className="col-span-4 lg:col-span-3">
+          <section
+            aria-labelledby="product-heading"
+            className="col-span-4 group-has-[[data-pending]]:animate-pulse lg:col-span-3"
+          >
             <h2 className="sr-only" id="product-heading">
               {t('products')}
             </h2>

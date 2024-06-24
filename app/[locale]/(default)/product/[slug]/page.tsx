@@ -1,28 +1,34 @@
+import { removeEdgesAndNodes } from '@bigcommerce/catalyst-client';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Suspense } from 'react';
 
-import { getProduct } from '~/client/queries/get-product';
+import { Breadcrumbs } from '~/components/breadcrumbs';
 import { LocaleType } from '~/i18n';
 
-import { BreadCrumbs } from './_components/breadcrumbs';
 import { Description } from './_components/description';
 import { Details } from './_components/details';
 import { Gallery } from './_components/gallery';
 import { RelatedProducts } from './_components/related-products';
 import { Reviews } from './_components/reviews';
 import { Warranty } from './_components/warranty';
+import { getProduct } from './page-data';
 
 interface ProductPageProps {
   params: { slug: string; locale: LocaleType };
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Record<string, string | string[] | undefined>;
 }
 
-export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: ProductPageProps): Promise<Metadata> {
   const productId = Number(params.slug);
-  const product = await getProduct(productId);
+  const optionValueIds = getOptionValueIds({ searchParams });
+
+  const product = await getProduct({ entityId: productId, optionValueIds });
 
   if (!product) {
     return {};
@@ -57,32 +63,30 @@ export default async function Product({ params, searchParams }: ProductPageProps
   const messages = await getMessages({ locale });
 
   const productId = Number(params.slug);
-  const { slug, ...options } = searchParams;
 
-  const optionValueIds = Object.keys(options)
-    .map((option) => ({
-      optionEntityId: Number(option),
-      valueEntityId: Number(searchParams[option]),
-    }))
-    .filter(
-      (option) => !Number.isNaN(option.optionEntityId) && !Number.isNaN(option.valueEntityId),
-    );
+  const optionValueIds = getOptionValueIds({ searchParams });
 
-  const product = await getProduct(productId, optionValueIds);
+  const product = await getProduct({ entityId: productId, optionValueIds });
 
   if (!product) {
     return notFound();
   }
 
+  const category = removeEdgesAndNodes(product.categories).at(0);
+
   return (
     <>
-      <BreadCrumbs productId={product.entityId} />
+      {category && <Breadcrumbs category={category} />}
+
       <div className="mb-12 mt-4 lg:grid lg:grid-cols-2 lg:gap-8">
-        <NextIntlClientProvider locale={locale} messages={{ Product: messages.Product ?? {} }}>
+        <NextIntlClientProvider
+          locale={locale}
+          messages={{ Product: messages.Product ?? {}, AddToCart: messages.AddToCart ?? {} }}
+        >
           <Gallery noImageText={t('noGalleryText')} product={product} />
           <Details product={product} />
           <div className="lg:col-span-2">
-            <Description product={product} />
+            {/* <Description product={product} /> */}
             <Warranty product={product} />
             <Suspense fallback={t('loading')}>
               <Reviews productId={product.entityId} />
@@ -96,6 +100,19 @@ export default async function Product({ params, searchParams }: ProductPageProps
       </Suspense>
     </>
   );
+}
+
+function getOptionValueIds({ searchParams }: { searchParams: ProductPageProps['searchParams'] }) {
+  const { slug, ...options } = searchParams;
+
+  return Object.keys(options)
+    .map((option) => ({
+      optionEntityId: Number(option),
+      valueEntityId: Number(searchParams[option]),
+    }))
+    .filter(
+      (option) => !Number.isNaN(option.optionEntityId) && !Number.isNaN(option.valueEntityId),
+    );
 }
 
 export const runtime = 'edge';

@@ -1,12 +1,11 @@
 'use client';
 
-import { Loader2 as Spinner } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useFormStatus } from 'react-dom';
 
-import { Button } from '@bigcommerce/components/button';
-import { Field, FieldControl, Form, FormSubmit } from '@bigcommerce/components/form';
-import { Input } from '@bigcommerce/components/input';
+import { Button } from '~/components/ui/button';
+import { Field, FieldControl, Form, FormSubmit } from '~/components/ui/form';
+import { Input } from '~/components/ui/input';
 
 interface Props {
   initialTerm?: string;
@@ -31,15 +30,8 @@ export const SearchForm = ({ initialTerm = '' }: Props) => {
           </FieldControl>
         </Field>
         <FormSubmit asChild>
-          <Button className="w-auto" disabled={pending} type="submit">
-            {pending ? (
-              <>
-                <Spinner aria-hidden="true" className="animate-spin" />
-                <span className="sr-only">{t('searching')}</span>
-              </>
-            ) : (
-              <span>{t('search')}</span>
-            )}
+          <Button className="w-auto" loading={pending} loadingText={t('searching')} type="submit">
+            {t('search')}
           </Button>
         </FormSubmit>
       </Form>

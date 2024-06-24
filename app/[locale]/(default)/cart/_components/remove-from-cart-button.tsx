@@ -1,32 +1,23 @@
 'use client';
 
-import { Loader2 as Spinner, Trash } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useFormStatus } from 'react-dom';
 
-export const RemoveFromCartButton = ({
-  label,
-  spinnerLabel,
-}: {
-  label: string;
-  spinnerLabel: string;
-}) => {
+import { Button } from '~/components/ui/button';
+
+export const RemoveFromCartButton = () => {
   const { pending } = useFormStatus();
+  const t = useTranslations('Cart.SubmitRemoveItem');
 
   return (
-    <button
-      aria-label={label}
-      className="items-center hover:text-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
-      disabled={pending}
+    <Button
+      className="w-auto items-center p-0 text-primary hover:bg-transparent disabled:text-primary disabled:hover:text-primary"
+      loading={pending}
+      loadingText={t('spinnerText')}
       type="submit"
+      variant="subtle"
     >
-      {pending ? (
-        <>
-          <Spinner aria-hidden="true" className="animate-spin text-primary " />
-          <span className="sr-only">{spinnerLabel}</span>
-        </>
-      ) : (
-        <Trash aria-hidden="true" />
-      )}
-    </button>
+      {t('remove')}
+    </Button>
   );
 };

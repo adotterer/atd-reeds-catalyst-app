@@ -39,14 +39,14 @@ export const Link = forwardRef<ElementRef<'a'>, Props>(
       // PrefetchKind enum is not exported
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
-      router.prefetch(href.toString(), { kind: prefetchKind });
+      router.prefetch(String(href), { kind: prefetchKind });
       setPrefetched();
     };
 
     return (
       <NavLink
         className={cn(
-          ' hover:text-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20',
+          'hover:text-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20',
           className,
         )}
         href={href}

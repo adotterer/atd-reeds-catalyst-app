@@ -1,8 +1,6 @@
-// @ts-check
-
 /** @type {import('tailwindcss').Config} */
 const config = {
-  content: ['./src/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
+  content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -46,9 +44,15 @@ const config = {
       },
     },
   },
-  // @ts-ignore
-  // eslint-disable-next-line global-require
-  plugins: [require('tailwindcss-radix')(), require('tailwindcss-animate')],
+
+  plugins: [
+    // @ts-ignore
+    /* eslint-disable global-require */
+    require('tailwindcss-radix')(),
+    require('tailwindcss-animate'),
+    require('@tailwindcss/container-queries'),
+    /* eslint-enable global-require */
+  ],
 };
 
 module.exports = config;

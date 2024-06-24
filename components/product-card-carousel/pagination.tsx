@@ -1,16 +1,13 @@
 'use client';
 
-import { CarouselPagination, CarouselPaginationTab } from '@bigcommerce/components/carousel';
+import { CarouselPagination, CarouselPaginationTab } from '~/components/ui/carousel';
 
-import { Product } from '../product-card';
-
-export const Pagination = ({
-  groupedProducts,
-  id,
-}: {
-  groupedProducts: Array<Array<Partial<Product>>>;
+interface Props {
   id: string;
-}) => {
+  groupedProducts: unknown[];
+}
+
+export const Pagination = ({ groupedProducts, id }: Props) => {
   return (
     <CarouselPagination>
       {groupedProducts.map((_, index) => (

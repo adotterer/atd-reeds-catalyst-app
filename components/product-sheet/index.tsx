@@ -11,7 +11,7 @@ import {
   SheetHeader,
   SheetOverlay,
   SheetTitle,
-} from '@bigcommerce/components/sheet';
+} from '~/components/ui/sheet';
 
 import { ProductSheetContent } from './product-sheet-content';
 

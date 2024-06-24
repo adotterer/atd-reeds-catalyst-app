@@ -1,4 +1,6 @@
-const { generateSchema, generateTadaTypes } = require('@gql.tada/cli-utils');
+// @ts-check
+const { generateSchema, generateOutput } = require('@gql.tada/cli-utils');
+const { join } = require('path');
 
 const graphqlApiDomain = process.env.BIGCOMMERCE_GRAPHQL_API_DOMAIN ?? 'mybigcommerce.com';
 
@@ -42,11 +44,24 @@ const getEndpoint = () => {
 };
 
 const generate = async () => {
-  await generateSchema(getEndpoint(), {
-    headers: { Authorization: `Bearer ${getToken()}` },
-  });
+  try {
+    await generateSchema({
+      input: getEndpoint(),
+      headers: { Authorization: `Bearer ${getToken()}` },
+      output: join(__dirname, '../bigcommerce.graphql'),
+      tsconfig: undefined,
+    });
 
-  await generateTadaTypes();
+    await generateOutput({
+      disablePreprocessing: false,
+      output: undefined,
+      tsconfig: undefined,
+    });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    process.exit(1);
+  }
 };
 
 generate();

@@ -1,18 +1,23 @@
+import { removeEdgesAndNodes } from '@bigcommerce/catalyst-client';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import * as z from 'zod';
 
-import { Button } from '@bigcommerce/components/button';
-import { Rating } from '@bigcommerce/components/rating';
-import { getProducts } from '~/client/queries/get-products';
+import { getSessionCustomerId } from '~/auth';
+import { client } from '~/client';
+import { graphql } from '~/client/graphql';
+import { revalidate } from '~/client/revalidate-target';
 import { BcImage } from '~/components/bc-image';
 import { Link } from '~/components/link';
-import { Pricing } from '~/components/pricing';
+import { Pricing, PricingFragment } from '~/components/pricing';
 import { SearchForm } from '~/components/search-form';
+import { Button } from '~/components/ui/button';
+import { Rating } from '~/components/ui/rating';
 import { LocaleType } from '~/i18n';
 import { cn } from '~/lib/utils';
 
-import { AddToCartForm } from './_components/add-to-cart-form';
+import { AddToCart } from './_components/add-to-cart';
+import { AddToCartFragment } from './_components/add-to-cart/fragment';
 
 const MAX_COMPARE_LIMIT = 10;
 
@@ -37,22 +42,79 @@ const CompareParamsSchema = z.object({
     .transform((value) => value?.map((id) => parseInt(id, 10))),
 });
 
+const ComparePageQuery = graphql(
+  `
+    query ComparePage($entityIds: [Int!], $first: Int) {
+      site {
+        products(entityIds: $entityIds, first: $first) {
+          edges {
+            node {
+              entityId
+              name
+              path
+              brand {
+                name
+              }
+              defaultImage {
+                altText
+                url: urlTemplate
+              }
+              reviewSummary {
+                numberOfReviews
+                averageRating
+              }
+              productOptions(first: 3) {
+                edges {
+                  node {
+                    entityId
+                  }
+                }
+              }
+              description
+              inventory {
+                aggregated {
+                  availableToSell
+                }
+              }
+              ...AddToCartFragment
+              ...PricingFragment
+            }
+          }
+        }
+      }
+    }
+  `,
+  [AddToCartFragment, PricingFragment],
+);
+
 export default async function Compare({
   params: { locale },
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Record<string, string | string[] | undefined>;
   params: { locale: LocaleType };
 }) {
+  const customerId = await getSessionCustomerId();
   const t = await getTranslations({ locale, namespace: 'Compare' });
   const messages = await getMessages({ locale });
 
   const parsed = CompareParamsSchema.parse(searchParams);
   const productIds = parsed.ids?.filter((id) => !Number.isNaN(id));
-  const products = await getProducts({
-    productIds: productIds ?? [],
-    first: productIds?.length ? MAX_COMPARE_LIMIT : 0,
+
+  const { data } = await client.fetch({
+    document: ComparePageQuery,
+    variables: {
+      entityIds: productIds ?? [],
+      first: productIds?.length ? MAX_COMPARE_LIMIT : 0,
+    },
+    customerId,
+    fetchOptions: customerId ? { cache: 'no-store' } : { next: { revalidate } },
   });
+
+  const products = removeEdgesAndNodes(data.site.products).map((product) => ({
+    ...product,
+    productOptions: removeEdgesAndNodes(product.productOptions),
+  }));
 
   if (!products.length) {
     return (
@@ -74,7 +136,7 @@ export default async function Compare({
         {t('comparingQuantity', { quantity: products.length })}
       </h1>
 
-      <div className="-mx-6 overflow-auto overscroll-x-contain px-6 sm:-mx-10 sm:px-10 lg:-mx-12 lg:px-12">
+      <div className="-mx-6 overflow-auto overscroll-x-contain px-4 sm:-mx-10 sm:px-10 lg:-mx-12 lg:px-12">
         <table className="mx-auto w-full max-w-full table-fixed text-base md:w-fit">
           <caption className="sr-only">{t('productComparison')}</caption>
 
@@ -136,7 +198,7 @@ export default async function Compare({
               {products.map((product) => (
                 <td className="px-4 py-4 align-bottom text-base" key={product.entityId}>
                   {/* TODO: add translations */}
-                  <Pricing prices={product.prices} />
+                  <Pricing data={product} />
                 </td>
               ))}
             </tr>
@@ -156,13 +218,9 @@ export default async function Compare({
                   <td className="border-b px-4 pb-12" key={product.entityId}>
                     <NextIntlClientProvider
                       locale={locale}
-                      messages={{ Compare: messages.Compare ?? {} }}
+                      messages={{ AddToCart: messages.AddToCart ?? {} }}
                     >
-                      <AddToCartForm
-                        availability={product.availabilityV2.status}
-                        entityId={product.entityId}
-                        productName={product.name}
-                      />
+                      <AddToCart data={product} />
                     </NextIntlClientProvider>
                   </td>
                 );
@@ -247,13 +305,9 @@ export default async function Compare({
                   <td className="border-b px-4 pb-24 pt-12" key={product.entityId}>
                     <NextIntlClientProvider
                       locale={locale}
-                      messages={{ Compare: messages.Compare ?? {} }}
+                      messages={{ AddToCart: messages.AddToCart ?? {} }}
                     >
-                      <AddToCartForm
-                        availability={product.availabilityV2.status}
-                        entityId={product.entityId}
-                        productName={product.name}
-                      />
+                      <AddToCart data={product} />
                     </NextIntlClientProvider>
                   </td>
                 );

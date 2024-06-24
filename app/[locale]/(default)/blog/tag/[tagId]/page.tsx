@@ -2,23 +2,24 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 
-import { getBlogPosts } from '~/client/queries/get-blog-posts';
 import { BlogPostCard } from '~/components/blog-post-card';
 import { Link } from '~/components/link';
+
+import { getBlogPosts } from '../../page-data';
 
 interface Props {
   params: {
     tagId: string;
     locale: string;
   };
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Record<string, string | string[] | undefined>;
 }
 
 export default async function BlogPostPage({ params: { tagId, locale }, searchParams }: Props) {
   const blogPosts = await getBlogPosts({ tagId, ...searchParams });
   const t = await getTranslations({ locale, namespace: 'Pagination' });
 
-  if (!blogPosts || !blogPosts.isVisibleInNavigation) {
+  if (!blogPosts) {
     return notFound();
   }
 
@@ -28,7 +29,7 @@ export default async function BlogPostPage({ params: { tagId, locale }, searchPa
 
       <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         {blogPosts.posts.items.map((post) => {
-          return <BlogPostCard blogPost={post} key={post.entityId} />;
+          return <BlogPostCard data={post} key={post.entityId} />;
         })}
       </div>
 

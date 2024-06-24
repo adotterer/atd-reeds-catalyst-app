@@ -1,10 +1,18 @@
 import { useTranslations } from 'next-intl';
 
-import { getProduct } from '~/client/queries/get-product';
+import { FragmentOf, graphql } from '~/client/graphql';
 
-type Product = Awaited<ReturnType<typeof getProduct>>;
+export const DescriptionFragment = graphql(`
+  fragment DescriptionFragment on Product {
+    description
+  }
+`);
 
-export const Description = ({ product }: { product: NonNullable<Product> }) => {
+interface Props {
+  product: FragmentOf<typeof DescriptionFragment>;
+}
+
+export const Description = ({ product }: Props) => {
   const t = useTranslations('Product.DescriptionAndReviews');
 
   if (!product.description) {
@@ -13,7 +21,7 @@ export const Description = ({ product }: { product: NonNullable<Product> }) => {
 
   return (
     <>
-      <h2 className="mb-4 text-xl font-bold md:text-2xl">{t('description')}</h2>
+      {/* <h2 className="mb-4 text-xl font-bold md:text-2xl">{t('description')}</h2> */}
       <div dangerouslySetInnerHTML={{ __html: product.description }} />
     </>
   );

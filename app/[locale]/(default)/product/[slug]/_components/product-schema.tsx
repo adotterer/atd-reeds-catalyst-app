@@ -1,17 +1,66 @@
 import { Product as ProductSchemaType, WithContext } from 'schema-dts';
 
-import { getProduct } from '~/client/queries/get-product';
+import { FragmentOf, graphql } from '~/client/graphql';
 
-export const ProductSchema = ({ product }: { product: Awaited<ReturnType<typeof getProduct>> }) => {
-  if (product === null) return null;
+export const ProductSchemaFragment = graphql(`
+  fragment ProductSchemaFragment on Product {
+    name
+    path
+    plainTextDescription
+    sku
+    gtin
+    mpn
+    brand {
+      name
+      path
+    }
+    customFields {
+      edges {
+        node {
+          name
+          value
+        }
+      }
+    }
+    reviewSummary {
+      averageRating
+      numberOfReviews
+    }
+    defaultImage {
+      url: urlTemplate
+    }
+    prices {
+      price {
+        value
+        currencyCode
+      }
+      priceRange {
+        min {
+          value
+        }
+        max {
+          value
+        }
+      }
+    }
+    condition
+    availabilityV2 {
+      status
+    }
+  }
+`);
 
+interface Props {
+  product: FragmentOf<typeof ProductSchemaFragment>;
+}
+
+export const ProductSchema = ({ product }: Props) => {
   /* TODO: use common default image when product has no images */
   const image = product.defaultImage ? { image: product.defaultImage.url } : null;
 
   const sku = product.sku ? { sku: product.sku } : null;
   const gtin = product.gtin ? { gtin: product.gtin } : null;
   const mpn = product.mpn ? { mpn: product.mpn } : null;
-  const inventory = product.inventory.aggregated ? { inventory: product.inventory } : null;
 
   const brand = product.brand
     ? {
@@ -72,7 +121,6 @@ export const ProductSchema = ({ product }: { product: Awaited<ReturnType<typeof 
     ...sku,
     ...gtin,
     ...mpn,
-    ...inventory,
     offers: {
       '@type': 'Offer',
       ...(priceSpecification && { priceSpecification }),

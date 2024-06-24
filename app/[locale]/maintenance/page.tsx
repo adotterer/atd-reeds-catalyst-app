@@ -1,4 +1,4 @@
-// import { Phone } from 'lucide-react';
+import { Phone } from 'lucide-react';
 import { ReactNode } from 'react';
 
 import { client } from '~/client';
@@ -6,7 +6,7 @@ import { graphql } from '~/client/graphql';
 import { StoreLogo, StoreLogoFragment } from '~/components/store-logo';
 
 const Container = ({ children }: { children: ReactNode }) => (
-  <main className="mx-auto mt-[64px] px-6 md:px-10 lg:mt-[128px]">{children}</main>
+  <main className="mx-auto mt-[64px] px-4 md:px-10 lg:mt-[128px]">{children}</main>
 );
 
 export const metadata = {
@@ -45,8 +45,7 @@ export default async function MaintenancePage() {
     );
   }
 
-  // const { contact, statusMessage } = storeSettings;
-  const { statusMessage } = storeSettings;
+  const { contact, statusMessage } = storeSettings;
 
   return (
     <Container>
@@ -56,7 +55,7 @@ export default async function MaintenancePage() {
 
       {Boolean(statusMessage) && <p className="mb-4">{statusMessage}</p>}
 
-      {/* {contact && (
+      {contact && (
         <address className="flex flex-col gap-2 not-italic">
           <p>You can contact us at:</p>
 
@@ -70,7 +69,7 @@ export default async function MaintenancePage() {
             </a>
           </p>
         </address>
-      )} */}
+      )}
     </Container>
   );
 }
